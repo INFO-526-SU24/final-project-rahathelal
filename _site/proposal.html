@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Team Name">
+<meta name="author" content="Mohammad Rahat Helal">
 <meta name="description" content="Project description">
 
-<title>Project Title - Proposal title</title>
+<title>Project Title - Utilize Worldwide Bureaucracy Indicators to understand and implement public policies in various countries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4548,7 +4548,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Proposal title</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Utilize Worldwide Bureaucracy Indicators to understand and implement public policies in various countries</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 <p class="subtitle lead">Proposal</p>
 </div>
 
@@ -4563,7 +4563,7 @@ vertical-align: -.125em;
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Team Name </p>
+    <p class="author">Mohammad Rahat Helal </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -4583,22 +4583,161 @@ vertical-align: -.125em;
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Set a CRAN mirror</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">options</span>(<span class="at">repos =</span> <span class="fu">c</span>(<span class="at">CRAN =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>))</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(tidytuesdayR)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="dataset" class="level2">
 <h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
-<p>A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.</p>
-<p>Make sure to load the data and use inline code for some of this information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#Make sure to load the data and use inline code for some of this information.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I have selected the Worldwide Bureaucracy Indicators (WWBI) datasets for my final project. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries. Some other variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries. I have downloaded the data from the required source and performed initial cleaning steps to get a well-defined data version for research needs. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions. </p>
+<p>The steps to download the required datasets and load them in data/2024/2024-04-30 location can be found below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidytuesdayR&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="st">&#39;2024-04-30&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Downloading file 1 of 3: `wwbi_data.csv`
+    Downloading file 2 of 3: `wwbi_series.csv`
+    Downloading file 3 of 3: `wwbi_country.csv`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>wwbi_data <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_data</span>
+<span id="cb5-2"><a href="#cb5-2"></a>wwbi_series <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_series</span>
+<span id="cb5-3"><a href="#cb5-3"></a>wwbi_country <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="st">&#39;2024-04-30&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Downloading file 1 of 3: `wwbi_data.csv`
+    Downloading file 2 of 3: `wwbi_series.csv`
+    Downloading file 3 of 3: `wwbi_country.csv`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>wwbi_data <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_data</span>
+<span id="cb8-2"><a href="#cb8-2"></a>wwbi_series <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_series</span>
+<span id="cb8-3"><a href="#cb8-3"></a>wwbi_country <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Clean the data downloaded from the WWBI website and </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># load the three csv files into data folder </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">library</span>(here)</span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="fu">library</span>(fs)</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="fu">library</span>(withr)</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a>working_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;2024&quot;</span>, <span class="st">&quot;2024-04-30&quot;</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://databank.worldbank.org/data/download/WWBI_CSV.zip&quot;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a></span>
+<span id="cb9-13"><a href="#cb9-13"></a>file_path <span class="ot">&lt;-</span> withr<span class="sc">::</span><span class="fu">local_tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.zip&quot;</span>)</span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="fu">download.file</span>(url, file_path)</span>
+<span id="cb9-15"><a href="#cb9-15"></a></span>
+<span id="cb9-16"><a href="#cb9-16"></a>extract_dir <span class="ot">&lt;-</span> withr<span class="sc">::</span><span class="fu">local_tempdir</span>(<span class="st">&quot;csvs&quot;</span>)</span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="fu">unzip</span>(file_path, <span class="at">exdir =</span> extract_dir)</span>
+<span id="cb9-18"><a href="#cb9-18"></a></span>
+<span id="cb9-19"><a href="#cb9-19"></a>wwbi_country <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb9-20"><a href="#cb9-20"></a>  fs<span class="sc">::</span><span class="fu">path</span>(extract_dir, <span class="st">&quot;WWBICountry.csv&quot;</span>)</span>
+<span id="cb9-21"><a href="#cb9-21"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-22"><a href="#cb9-22"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-23"><a href="#cb9-23"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>(<span class="st">&quot;cols&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-24"><a href="#cb9-24"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb9-25"><a href="#cb9-25"></a>    <span class="co"># Several columns are years, make them integers</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>    <span class="at">national_accounts_reference_year =</span> <span class="fu">as.integer</span>(national_accounts_reference_year),</span>
+<span id="cb9-27"><a href="#cb9-27"></a>    <span class="at">latest_industrial_data =</span> <span class="fu">as.integer</span>(latest_industrial_data),</span>
+<span id="cb9-28"><a href="#cb9-28"></a>    <span class="at">latest_trade_data =</span> <span class="fu">as.integer</span>(latest_trade_data),</span>
+<span id="cb9-29"><a href="#cb9-29"></a>    <span class="at">latest_population_census_year =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb9-30"><a href="#cb9-30"></a>      latest_population_census,</span>
+<span id="cb9-31"><a href="#cb9-31"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>    )),</span>
+<span id="cb9-33"><a href="#cb9-33"></a>    <span class="at">latest_agricultural_census =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb9-34"><a href="#cb9-34"></a>      latest_agricultural_census,</span>
+<span id="cb9-35"><a href="#cb9-35"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a>    )),</span>
+<span id="cb9-37"><a href="#cb9-37"></a>    <span class="at">national_accounts_base_year =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb9-38"><a href="#cb9-38"></a>      national_accounts_base_year,</span>
+<span id="cb9-39"><a href="#cb9-39"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a>    )),</span>
+<span id="cb9-41"><a href="#cb9-41"></a>    <span class="at">system_of_national_accounts =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb9-42"><a href="#cb9-42"></a>      system_of_national_accounts,</span>
+<span id="cb9-43"><a href="#cb9-43"></a>      <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a>    )),</span>
+<span id="cb9-45"><a href="#cb9-45"></a>    <span class="at">latest_population_census_notes =</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(</span>
+<span id="cb9-46"><a href="#cb9-46"></a>      latest_population_census,</span>
+<span id="cb9-47"><a href="#cb9-47"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}</span><span class="sc">\\</span><span class="st">.?</span><span class="sc">\\</span><span class="st">s*&quot;</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a>    ),</span>
+<span id="cb9-49"><a href="#cb9-49"></a>    <span class="at">latest_population_census_notes =</span> dplyr<span class="sc">::</span><span class="fu">na_if</span>(</span>
+<span id="cb9-50"><a href="#cb9-50"></a>      latest_population_census_notes,</span>
+<span id="cb9-51"><a href="#cb9-51"></a>      <span class="st">&quot;&quot;</span></span>
+<span id="cb9-52"><a href="#cb9-52"></a>    ),</span>
+<span id="cb9-53"><a href="#cb9-53"></a>    <span class="co"># vital_registration_complete is either &quot;yes&quot; or &quot;NA&quot;</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a>    <span class="at">vital_registration_complete =</span> <span class="sc">!</span><span class="fu">is.na</span>(vital_registration_complete) </span>
+<span id="cb9-55"><a href="#cb9-55"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-56"><a href="#cb9-56"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="st">&quot;latest_population_census&quot;</span>)</span>
+<span id="cb9-57"><a href="#cb9-57"></a></span>
+<span id="cb9-58"><a href="#cb9-58"></a>wwbi_series <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb9-59"><a href="#cb9-59"></a>  fs<span class="sc">::</span><span class="fu">path</span>(extract_dir, <span class="st">&quot;WWBISeries.csv&quot;</span>),</span>
+<span id="cb9-60"><a href="#cb9-60"></a>  <span class="at">col_types =</span> <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">21</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb9-61"><a href="#cb9-61"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-62"><a href="#cb9-62"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-63"><a href="#cb9-63"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>(<span class="st">&quot;cols&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-64"><a href="#cb9-64"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">indicator_code =</span> <span class="st">&quot;series_code&quot;</span>)</span>
+<span id="cb9-65"><a href="#cb9-65"></a></span>
+<span id="cb9-66"><a href="#cb9-66"></a>wwbi_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb9-67"><a href="#cb9-67"></a>  fs<span class="sc">::</span><span class="fu">path</span>(extract_dir, <span class="st">&quot;WWBIData.csv&quot;</span>),</span>
+<span id="cb9-68"><a href="#cb9-68"></a>  <span class="at">col_types =</span> <span class="fu">paste</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">4</span>), <span class="fu">rep</span>(<span class="st">&quot;d&quot;</span>, <span class="dv">21</span>), <span class="st">&quot;c&quot;</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb9-69"><a href="#cb9-69"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-70"><a href="#cb9-70"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-71"><a href="#cb9-71"></a>  <span class="co"># indicator_name and country_name are redundant.</span></span>
+<span id="cb9-72"><a href="#cb9-72"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="st">&quot;indicator_name&quot;</span>, <span class="sc">-</span><span class="st">&quot;country_name&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-73"><a href="#cb9-73"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>(<span class="st">&quot;cols&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-74"><a href="#cb9-74"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb9-75"><a href="#cb9-75"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(country_code, indicator_code),</span>
+<span id="cb9-76"><a href="#cb9-76"></a>    <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb9-77"><a href="#cb9-77"></a>    <span class="at">names_transform =</span> <span class="sc">~</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(.x, <span class="st">&quot;x&quot;</span>)),</span>
+<span id="cb9-78"><a href="#cb9-78"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb9-79"><a href="#cb9-79"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-80"><a href="#cb9-80"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span>
+<span id="cb9-81"><a href="#cb9-81"></a></span>
+<span id="cb9-82"><a href="#cb9-82"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb9-83"><a href="#cb9-83"></a>  wwbi_data,</span>
+<span id="cb9-84"><a href="#cb9-84"></a>  fs<span class="sc">::</span><span class="fu">path</span>(working_dir, <span class="st">&quot;wwbi_data.csv&quot;</span>)</span>
+<span id="cb9-85"><a href="#cb9-85"></a>)</span>
+<span id="cb9-86"><a href="#cb9-86"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb9-87"><a href="#cb9-87"></a>  wwbi_series,</span>
+<span id="cb9-88"><a href="#cb9-88"></a>  fs<span class="sc">::</span><span class="fu">path</span>(working_dir, <span class="st">&quot;wwbi_series.csv&quot;</span>)</span>
+<span id="cb9-89"><a href="#cb9-89"></a>)</span>
+<span id="cb9-90"><a href="#cb9-90"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb9-91"><a href="#cb9-91"></a>  wwbi_country,</span>
+<span id="cb9-92"><a href="#cb9-92"></a>  fs<span class="sc">::</span><span class="fu">path</span>(working_dir, <span class="st">&quot;wwbi_country.csv&quot;</span>)</span>
+<span id="cb9-93"><a href="#cb9-93"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The reason why I chose this dataset:</p>
+<p>I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies.</p>
 </section>
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
-<p>The two questions you want to answer.</p>
+<p>The two questions I want to answer:</p>
+<p>Research the variables and investigate if they can be applied or accepted uniformly across countries or if they will portray different pictures, i.e., convey dissimilar messages based on the underlying survey data. For example, the latest agricultural census data varies for every country. Not all have performed the census recently, so merging the analysis and concluding something specific for each would be difficult. Similarly, the four blog posts mentioned on the webpage only cover topics on jobs and gender participation but miss the point on other indicators valuable in understanding the importance of other indicator priorities. </p>
 </section>
 <section id="analysis-plan" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-plan">Analysis plan</h2>
 <ul>
 <li>A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).</li>
 </ul>
+<p>Join the data across the three datasets to understand the current situation based on the indicators of interest such as public jobs, gender participation in the workforce, and the role of recent agriculture, industrial, and trade surveys in further understanding if all the policies are aligned as expected.</p>
 
 
 <!-- -->
@@ -5070,50 +5209,188 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> &quot;Proposal title&quot;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="an">subtitle:</span><span class="co"> &quot;Proposal&quot;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="an">author:</span><span class="co"> </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">  - name: &quot;Team Name&quot;</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">    affiliations:</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">      - name: &quot;School of Information, University of Arizona&quot;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="an">description:</span><span class="co"> &quot;Project description&quot;</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="an">format:</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">  html:</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">    code-tools: true</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">    code-line-numbers: true</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="an">editor:</span><span class="co"> visual</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="an">code-annotations:</span><span class="co"> hover</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="an">execute:</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">  warning: false</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">---</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="in">```{r}</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#| label: load-pkgs</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#| message: false</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="in">```</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="fu">## Dataset</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="in">```{r}</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#| label: load-dataset</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#| message: false</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="in">```</span></span>
-<span id="cb2-37"><a href="#cb2-37"></a></span>
-<span id="cb2-38"><a href="#cb2-38"></a>A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.</span>
-<span id="cb2-39"><a href="#cb2-39"></a></span>
-<span id="cb2-40"><a href="#cb2-40"></a>Make sure to load the data and use inline code for some of this information.</span>
-<span id="cb2-41"><a href="#cb2-41"></a></span>
-<span id="cb2-42"><a href="#cb2-42"></a><span class="fu">## Questions</span></span>
-<span id="cb2-43"><a href="#cb2-43"></a></span>
-<span id="cb2-44"><a href="#cb2-44"></a>The two questions you want to answer.</span>
-<span id="cb2-45"><a href="#cb2-45"></a></span>
-<span id="cb2-46"><a href="#cb2-46"></a><span class="fu">## Analysis plan</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a></span>
-<span id="cb2-48"><a href="#cb2-48"></a><span class="ss">-   </span>A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).</span>
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="an">title:</span><span class="co"> &quot;Utilize Worldwide Bureaucracy Indicators to understand and implement public policies in various countries&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="an">subtitle:</span><span class="co"> &quot;Proposal&quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="an">author:</span><span class="co"> </span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">  - name: &quot;Mohammad Rahat Helal&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">    affiliations:</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">      - name: &quot;School of Information, University of Arizona&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="an">description:</span><span class="co"> &quot;Project description&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="an">format:</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">  html:</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">    code-line-numbers: true</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="an">code-annotations:</span><span class="co"> hover</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="an">execute:</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="co">  warning: false</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="co">---</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a></span>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="in">```{r}</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a><span class="co">#| label: load-pkgs</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a><span class="co">#| message: false</span></span>
+<span id="cb10-26"><a href="#cb10-26"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-27"><a href="#cb10-27"></a></span>
+<span id="cb10-28"><a href="#cb10-28"></a><span class="co"># Set a CRAN mirror</span></span>
+<span id="cb10-29"><a href="#cb10-29"></a><span class="fu">options</span>(<span class="at">repos =</span> <span class="fu">c</span>(<span class="at">CRAN =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>))</span>
+<span id="cb10-30"><a href="#cb10-30"></a></span>
+<span id="cb10-31"><a href="#cb10-31"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb10-32"><a href="#cb10-32"></a><span class="fu">library</span>(tidytuesdayR)</span>
+<span id="cb10-33"><a href="#cb10-33"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-34"><a href="#cb10-34"></a><span class="fu">library</span>(readr)</span>
+<span id="cb10-35"><a href="#cb10-35"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb10-36"><a href="#cb10-36"></a></span>
+<span id="cb10-37"><a href="#cb10-37"></a><span class="in">```</span></span>
+<span id="cb10-38"><a href="#cb10-38"></a></span>
+<span id="cb10-39"><a href="#cb10-39"></a><span class="fu">## Dataset</span></span>
+<span id="cb10-40"><a href="#cb10-40"></a></span>
+<span id="cb10-43"><a href="#cb10-43"></a><span class="in">```{r}</span></span>
+<span id="cb10-44"><a href="#cb10-44"></a><span class="co">#| label: load-dataset</span></span>
+<span id="cb10-45"><a href="#cb10-45"></a><span class="co">#| message: false</span></span>
+<span id="cb10-46"><a href="#cb10-46"></a><span class="in">```</span></span>
+<span id="cb10-47"><a href="#cb10-47"></a></span>
+<span id="cb10-50"><a href="#cb10-50"></a><span class="in">```{r}</span></span>
+<span id="cb10-51"><a href="#cb10-51"></a><span class="co">#A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.</span></span>
+<span id="cb10-52"><a href="#cb10-52"></a></span>
+<span id="cb10-53"><a href="#cb10-53"></a><span class="co">#Make sure to load the data and use inline code for some of this information.</span></span>
+<span id="cb10-54"><a href="#cb10-54"></a><span class="in">```</span></span>
+<span id="cb10-55"><a href="#cb10-55"></a></span>
+<span id="cb10-56"><a href="#cb10-56"></a>I have selected the Worldwide Bureaucracy Indicators (WWBI) datasets for my final project. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries. Some other variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries. I have downloaded the data from the required source and performed initial cleaning steps to get a well-defined data version for research needs. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions. </span>
+<span id="cb10-57"><a href="#cb10-57"></a></span>
+<span id="cb10-58"><a href="#cb10-58"></a>The steps to download the required datasets and load them in data/2024/2024-04-30 location can be found below:</span>
+<span id="cb10-59"><a href="#cb10-59"></a></span>
+<span id="cb10-62"><a href="#cb10-62"></a><span class="in">```{r}</span></span>
+<span id="cb10-63"><a href="#cb10-63"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidytuesdayR&quot;</span>)</span>
+<span id="cb10-64"><a href="#cb10-64"></a></span>
+<span id="cb10-65"><a href="#cb10-65"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="st">&#39;2024-04-30&#39;</span>)</span>
+<span id="cb10-66"><a href="#cb10-66"></a></span>
+<span id="cb10-67"><a href="#cb10-67"></a>wwbi_data <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_data</span>
+<span id="cb10-68"><a href="#cb10-68"></a>wwbi_series <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_series</span>
+<span id="cb10-69"><a href="#cb10-69"></a>wwbi_country <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_country</span>
+<span id="cb10-70"><a href="#cb10-70"></a><span class="in">```</span></span>
+<span id="cb10-71"><a href="#cb10-71"></a></span>
+<span id="cb10-74"><a href="#cb10-74"></a><span class="in">```{r}</span></span>
+<span id="cb10-75"><a href="#cb10-75"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="st">&#39;2024-04-30&#39;</span>)</span>
+<span id="cb10-76"><a href="#cb10-76"></a></span>
+<span id="cb10-77"><a href="#cb10-77"></a>wwbi_data <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_data</span>
+<span id="cb10-78"><a href="#cb10-78"></a>wwbi_series <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_series</span>
+<span id="cb10-79"><a href="#cb10-79"></a>wwbi_country <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>wwbi_country</span>
+<span id="cb10-80"><a href="#cb10-80"></a><span class="in">```</span></span>
+<span id="cb10-81"><a href="#cb10-81"></a></span>
+<span id="cb10-84"><a href="#cb10-84"></a><span class="in">```{r}</span></span>
+<span id="cb10-85"><a href="#cb10-85"></a><span class="co"># Clean the data downloaded from the WWBI website and </span></span>
+<span id="cb10-86"><a href="#cb10-86"></a><span class="co"># load the three csv files into data folder </span></span>
+<span id="cb10-87"><a href="#cb10-87"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-88"><a href="#cb10-88"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb10-89"><a href="#cb10-89"></a><span class="fu">library</span>(here)</span>
+<span id="cb10-90"><a href="#cb10-90"></a><span class="fu">library</span>(fs)</span>
+<span id="cb10-91"><a href="#cb10-91"></a><span class="fu">library</span>(withr)</span>
+<span id="cb10-92"><a href="#cb10-92"></a></span>
+<span id="cb10-93"><a href="#cb10-93"></a>working_dir <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;2024&quot;</span>, <span class="st">&quot;2024-04-30&quot;</span>)</span>
+<span id="cb10-94"><a href="#cb10-94"></a></span>
+<span id="cb10-95"><a href="#cb10-95"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://databank.worldbank.org/data/download/WWBI_CSV.zip&quot;</span></span>
+<span id="cb10-96"><a href="#cb10-96"></a></span>
+<span id="cb10-97"><a href="#cb10-97"></a>file_path <span class="ot">&lt;-</span> withr<span class="sc">::</span><span class="fu">local_tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.zip&quot;</span>)</span>
+<span id="cb10-98"><a href="#cb10-98"></a><span class="fu">download.file</span>(url, file_path)</span>
+<span id="cb10-99"><a href="#cb10-99"></a></span>
+<span id="cb10-100"><a href="#cb10-100"></a>extract_dir <span class="ot">&lt;-</span> withr<span class="sc">::</span><span class="fu">local_tempdir</span>(<span class="st">&quot;csvs&quot;</span>)</span>
+<span id="cb10-101"><a href="#cb10-101"></a><span class="fu">unzip</span>(file_path, <span class="at">exdir =</span> extract_dir)</span>
+<span id="cb10-102"><a href="#cb10-102"></a></span>
+<span id="cb10-103"><a href="#cb10-103"></a>wwbi_country <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb10-104"><a href="#cb10-104"></a>  fs<span class="sc">::</span><span class="fu">path</span>(extract_dir, <span class="st">&quot;WWBICountry.csv&quot;</span>)</span>
+<span id="cb10-105"><a href="#cb10-105"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-106"><a href="#cb10-106"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-107"><a href="#cb10-107"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>(<span class="st">&quot;cols&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-108"><a href="#cb10-108"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb10-109"><a href="#cb10-109"></a>    <span class="co"># Several columns are years, make them integers</span></span>
+<span id="cb10-110"><a href="#cb10-110"></a>    <span class="at">national_accounts_reference_year =</span> <span class="fu">as.integer</span>(national_accounts_reference_year),</span>
+<span id="cb10-111"><a href="#cb10-111"></a>    <span class="at">latest_industrial_data =</span> <span class="fu">as.integer</span>(latest_industrial_data),</span>
+<span id="cb10-112"><a href="#cb10-112"></a>    <span class="at">latest_trade_data =</span> <span class="fu">as.integer</span>(latest_trade_data),</span>
+<span id="cb10-113"><a href="#cb10-113"></a>    <span class="at">latest_population_census_year =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb10-114"><a href="#cb10-114"></a>      latest_population_census,</span>
+<span id="cb10-115"><a href="#cb10-115"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb10-116"><a href="#cb10-116"></a>    )),</span>
+<span id="cb10-117"><a href="#cb10-117"></a>    <span class="at">latest_agricultural_census =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb10-118"><a href="#cb10-118"></a>      latest_agricultural_census,</span>
+<span id="cb10-119"><a href="#cb10-119"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb10-120"><a href="#cb10-120"></a>    )),</span>
+<span id="cb10-121"><a href="#cb10-121"></a>    <span class="at">national_accounts_base_year =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb10-122"><a href="#cb10-122"></a>      national_accounts_base_year,</span>
+<span id="cb10-123"><a href="#cb10-123"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb10-124"><a href="#cb10-124"></a>    )),</span>
+<span id="cb10-125"><a href="#cb10-125"></a>    <span class="at">system_of_national_accounts =</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb10-126"><a href="#cb10-126"></a>      system_of_national_accounts,</span>
+<span id="cb10-127"><a href="#cb10-127"></a>      <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d{4}&quot;</span></span>
+<span id="cb10-128"><a href="#cb10-128"></a>    )),</span>
+<span id="cb10-129"><a href="#cb10-129"></a>    <span class="at">latest_population_census_notes =</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(</span>
+<span id="cb10-130"><a href="#cb10-130"></a>      latest_population_census,</span>
+<span id="cb10-131"><a href="#cb10-131"></a>      <span class="st">&quot;^</span><span class="sc">\\</span><span class="st">d{4}</span><span class="sc">\\</span><span class="st">.?</span><span class="sc">\\</span><span class="st">s*&quot;</span></span>
+<span id="cb10-132"><a href="#cb10-132"></a>    ),</span>
+<span id="cb10-133"><a href="#cb10-133"></a>    <span class="at">latest_population_census_notes =</span> dplyr<span class="sc">::</span><span class="fu">na_if</span>(</span>
+<span id="cb10-134"><a href="#cb10-134"></a>      latest_population_census_notes,</span>
+<span id="cb10-135"><a href="#cb10-135"></a>      <span class="st">&quot;&quot;</span></span>
+<span id="cb10-136"><a href="#cb10-136"></a>    ),</span>
+<span id="cb10-137"><a href="#cb10-137"></a>    <span class="co"># vital_registration_complete is either &quot;yes&quot; or &quot;NA&quot;</span></span>
+<span id="cb10-138"><a href="#cb10-138"></a>    <span class="at">vital_registration_complete =</span> <span class="sc">!</span><span class="fu">is.na</span>(vital_registration_complete) </span>
+<span id="cb10-139"><a href="#cb10-139"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb10-140"><a href="#cb10-140"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="st">&quot;latest_population_census&quot;</span>)</span>
+<span id="cb10-141"><a href="#cb10-141"></a></span>
+<span id="cb10-142"><a href="#cb10-142"></a>wwbi_series <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb10-143"><a href="#cb10-143"></a>  fs<span class="sc">::</span><span class="fu">path</span>(extract_dir, <span class="st">&quot;WWBISeries.csv&quot;</span>),</span>
+<span id="cb10-144"><a href="#cb10-144"></a>  <span class="at">col_types =</span> <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">21</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb10-145"><a href="#cb10-145"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-146"><a href="#cb10-146"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-147"><a href="#cb10-147"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>(<span class="st">&quot;cols&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-148"><a href="#cb10-148"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">indicator_code =</span> <span class="st">&quot;series_code&quot;</span>)</span>
+<span id="cb10-149"><a href="#cb10-149"></a></span>
+<span id="cb10-150"><a href="#cb10-150"></a>wwbi_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb10-151"><a href="#cb10-151"></a>  fs<span class="sc">::</span><span class="fu">path</span>(extract_dir, <span class="st">&quot;WWBIData.csv&quot;</span>),</span>
+<span id="cb10-152"><a href="#cb10-152"></a>  <span class="at">col_types =</span> <span class="fu">paste</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">4</span>), <span class="fu">rep</span>(<span class="st">&quot;d&quot;</span>, <span class="dv">21</span>), <span class="st">&quot;c&quot;</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb10-153"><a href="#cb10-153"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-154"><a href="#cb10-154"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-155"><a href="#cb10-155"></a>  <span class="co"># indicator_name and country_name are redundant.</span></span>
+<span id="cb10-156"><a href="#cb10-156"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="st">&quot;indicator_name&quot;</span>, <span class="sc">-</span><span class="st">&quot;country_name&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-157"><a href="#cb10-157"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>(<span class="st">&quot;cols&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-158"><a href="#cb10-158"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb10-159"><a href="#cb10-159"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(country_code, indicator_code),</span>
+<span id="cb10-160"><a href="#cb10-160"></a>    <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb10-161"><a href="#cb10-161"></a>    <span class="at">names_transform =</span> <span class="sc">~</span> <span class="fu">as.integer</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(.x, <span class="st">&quot;x&quot;</span>)),</span>
+<span id="cb10-162"><a href="#cb10-162"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb10-163"><a href="#cb10-163"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb10-164"><a href="#cb10-164"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span>
+<span id="cb10-165"><a href="#cb10-165"></a></span>
+<span id="cb10-166"><a href="#cb10-166"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb10-167"><a href="#cb10-167"></a>  wwbi_data,</span>
+<span id="cb10-168"><a href="#cb10-168"></a>  fs<span class="sc">::</span><span class="fu">path</span>(working_dir, <span class="st">&quot;wwbi_data.csv&quot;</span>)</span>
+<span id="cb10-169"><a href="#cb10-169"></a>)</span>
+<span id="cb10-170"><a href="#cb10-170"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb10-171"><a href="#cb10-171"></a>  wwbi_series,</span>
+<span id="cb10-172"><a href="#cb10-172"></a>  fs<span class="sc">::</span><span class="fu">path</span>(working_dir, <span class="st">&quot;wwbi_series.csv&quot;</span>)</span>
+<span id="cb10-173"><a href="#cb10-173"></a>)</span>
+<span id="cb10-174"><a href="#cb10-174"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb10-175"><a href="#cb10-175"></a>  wwbi_country,</span>
+<span id="cb10-176"><a href="#cb10-176"></a>  fs<span class="sc">::</span><span class="fu">path</span>(working_dir, <span class="st">&quot;wwbi_country.csv&quot;</span>)</span>
+<span id="cb10-177"><a href="#cb10-177"></a>)</span>
+<span id="cb10-178"><a href="#cb10-178"></a><span class="in">```</span></span>
+<span id="cb10-179"><a href="#cb10-179"></a></span>
+<span id="cb10-180"><a href="#cb10-180"></a>The reason why I chose this dataset:</span>
+<span id="cb10-181"><a href="#cb10-181"></a></span>
+<span id="cb10-182"><a href="#cb10-182"></a>I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies.</span>
+<span id="cb10-183"><a href="#cb10-183"></a></span>
+<span id="cb10-184"><a href="#cb10-184"></a><span class="fu">## Questions</span></span>
+<span id="cb10-185"><a href="#cb10-185"></a></span>
+<span id="cb10-186"><a href="#cb10-186"></a>The two questions I want to answer:</span>
+<span id="cb10-187"><a href="#cb10-187"></a></span>
+<span id="cb10-188"><a href="#cb10-188"></a>Research the variables and investigate if they can be applied or accepted uniformly across countries or if they will portray different pictures, i.e., convey dissimilar messages based on the underlying survey data. For example, the latest agricultural census data varies for every country. Not all have performed the census recently, so merging the analysis and concluding something specific for each would be difficult. Similarly, the four blog posts mentioned on the webpage only cover topics on jobs and gender participation but miss the point on other indicators valuable in understanding the importance of other indicator priorities. </span>
+<span id="cb10-189"><a href="#cb10-189"></a></span>
+<span id="cb10-190"><a href="#cb10-190"></a><span class="fu">## Analysis plan</span></span>
+<span id="cb10-191"><a href="#cb10-191"></a></span>
+<span id="cb10-192"><a href="#cb10-192"></a><span class="ss">-   </span>A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).</span>
+<span id="cb10-193"><a href="#cb10-193"></a></span>
+<span id="cb10-194"><a href="#cb10-194"></a>Join the data across the three datasets to understand the current situation based on the indicators of interest such as public jobs, gender participation in the workforce, and the role of recent agriculture, industrial, and trade surveys in further understanding if all the policies are aligned as expected.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

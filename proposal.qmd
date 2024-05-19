@@ -1,8 +1,8 @@
 ---
-title: "Proposal title"
+title: "Utilize Worldwide Bureaucracy Indicators to understand and implement public policies in various countries"
 subtitle: "Proposal"
 author: 
-  - name: "Team Name"
+  - name: "Mohammad Rahat Helal"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -22,6 +22,16 @@ execute:
 #| label: load-pkgs
 #| message: false
 library(tidyverse)
+
+# Set a CRAN mirror
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# Load necessary libraries
+library(tidytuesdayR)
+library(dplyr)
+library(readr)
+library(janitor)
+
 ```
 
 ## Dataset
@@ -31,14 +41,142 @@ library(tidyverse)
 #| message: false
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+```{r}
+#A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
 
-Make sure to load the data and use inline code for some of this information.
+#Make sure to load the data and use inline code for some of this information.
+```
+
+I have selected the Worldwide Bureaucracy Indicators (WWBI) datasets for my final project. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries. Some other variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries. I have downloaded the data from the required source and performed initial cleaning steps to get a well-defined data version for research needs. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions. 
+
+The steps to download the required datasets and load them in data/2024/2024-04-30 location can be found below:
+
+```{r}
+install.packages("tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2024-04-30')
+
+wwbi_data <- tuesdata$wwbi_data
+wwbi_series <- tuesdata$wwbi_series
+wwbi_country <- tuesdata$wwbi_country
+```
+
+```{r}
+tuesdata <- tidytuesdayR::tt_load('2024-04-30')
+
+wwbi_data <- tuesdata$wwbi_data
+wwbi_series <- tuesdata$wwbi_series
+wwbi_country <- tuesdata$wwbi_country
+```
+
+```{r}
+# Clean the data downloaded from the WWBI website and 
+# load the three csv files into data folder 
+library(tidyverse)
+library(janitor)
+library(here)
+library(fs)
+library(withr)
+
+working_dir <- here::here("data", "2024", "2024-04-30")
+
+url <- "https://databank.worldbank.org/data/download/WWBI_CSV.zip"
+
+file_path <- withr::local_tempfile(fileext = ".zip")
+download.file(url, file_path)
+
+extract_dir <- withr::local_tempdir("csvs")
+unzip(file_path, exdir = extract_dir)
+
+wwbi_country <- readr::read_csv(
+  fs::path(extract_dir, "WWBICountry.csv")
+) |> 
+  janitor::clean_names() |> 
+  janitor::remove_empty("cols") |> 
+  dplyr::mutate(
+    # Several columns are years, make them integers
+    national_accounts_reference_year = as.integer(national_accounts_reference_year),
+    latest_industrial_data = as.integer(latest_industrial_data),
+    latest_trade_data = as.integer(latest_trade_data),
+    latest_population_census_year = as.integer(stringr::str_extract(
+      latest_population_census,
+      "^\\d{4}"
+    )),
+    latest_agricultural_census = as.integer(stringr::str_extract(
+      latest_agricultural_census,
+      "^\\d{4}"
+    )),
+    national_accounts_base_year = as.integer(stringr::str_extract(
+      national_accounts_base_year,
+      "^\\d{4}"
+    )),
+    system_of_national_accounts = as.integer(stringr::str_extract(
+      system_of_national_accounts,
+      "\\d{4}"
+    )),
+    latest_population_census_notes = stringr::str_remove(
+      latest_population_census,
+      "^\\d{4}\\.?\\s*"
+    ),
+    latest_population_census_notes = dplyr::na_if(
+      latest_population_census_notes,
+      ""
+    ),
+    # vital_registration_complete is either "yes" or "NA"
+    vital_registration_complete = !is.na(vital_registration_complete) 
+  ) |> 
+  dplyr::select(-"latest_population_census")
+
+wwbi_series <- readr::read_csv(
+  fs::path(extract_dir, "WWBISeries.csv"),
+  col_types = paste(rep("c", 21), collapse = "")
+) |> 
+  janitor::clean_names() |> 
+  janitor::remove_empty("cols") |> 
+  dplyr::rename(indicator_code = "series_code")
+
+wwbi_data <- readr::read_csv(
+  fs::path(extract_dir, "WWBIData.csv"),
+  col_types = paste(c(rep("c", 4), rep("d", 21), "c"), collapse = "")
+) |> 
+  janitor::clean_names() |> 
+  # indicator_name and country_name are redundant.
+  dplyr::select(-"indicator_name", -"country_name") |> 
+  janitor::remove_empty("cols") |> 
+  tidyr::pivot_longer(
+    cols = -c(country_code, indicator_code),
+    names_to = "year",
+    names_transform = ~ as.integer(stringr::str_remove(.x, "x")),
+    values_to = "value"
+  ) |> 
+  dplyr::filter(!is.na(value))
+
+readr::write_csv(
+  wwbi_data,
+  fs::path(working_dir, "wwbi_data.csv")
+)
+readr::write_csv(
+  wwbi_series,
+  fs::path(working_dir, "wwbi_series.csv")
+)
+readr::write_csv(
+  wwbi_country,
+  fs::path(working_dir, "wwbi_country.csv")
+)
+```
+
+The reason why I chose this dataset:
+
+I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies.
 
 ## Questions
 
-The two questions you want to answer.
+The two questions I want to answer:
+
+Research the variables and investigate if they can be applied or accepted uniformly across countries or if they will portray different pictures, i.e., convey dissimilar messages based on the underlying survey data. For example, the latest agricultural census data varies for every country. Not all have performed the census recently, so merging the analysis and concluding something specific for each would be difficult. Similarly, the four blog posts mentioned on the webpage only cover topics on jobs and gender participation but miss the point on other indicators valuable in understanding the importance of other indicator priorities. 
 
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+
+Join the data across the three datasets to understand the current situation based on the indicators of interest such as public jobs, gender participation in the workforce, and the role of recent agriculture, industrial, and trade surveys in further understanding if all the policies are aligned as expected.
