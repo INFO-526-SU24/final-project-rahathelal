@@ -5,7 +5,7 @@ author:
   - name: "Mohammad Rahat Helal"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "Project proposal description"
 format:
   html:
     code-tools: true
@@ -16,17 +16,33 @@ editor: visual
 code-annotations: hover
 execute:
   warning: false
+  message: false
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r}
 #| label: load-pkgs
 #| message: false
-library(tidyverse)
+
+if (!require ("pacman"))
+  install.packages("pacman")
+
+# use this line for installing/loading
+pacman::p_load(here,
+               tidyverse,
+               ggrepel,
+               devtools,
+               tidytuesdayR,
+               dplyr,
+               readr,
+               janitor)
 
 # Set a CRAN mirror
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 # Load necessary libraries
+library(tidyverse)
 library(tidytuesdayR)
 library(dplyr)
 library(readr)
@@ -37,31 +53,24 @@ library(janitor)
 ## Dataset
 
 ```{r}
-#| label: load-dataset
+#| label: explain_dataset
 #| message: false
-```
 
-```{r}
 #A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
 
 #Make sure to load the data and use inline code for some of this information.
 ```
 
-I have selected the Worldwide Bureaucracy Indicators (WWBI) datasets for my final project. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries. Some other variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries. I have downloaded the data from the required source and performed initial cleaning steps to get a well-defined data version for research needs. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions. 
+I have selected the datasets from the Worldwide Bureaucracy Indicators (WWBI) for my final project. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries world wide. Some other variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries. I have downloaded the data from the required source and performed initial cleaning steps to get a well-defined data version for research needs. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions.
 
 The steps to download the required datasets and load them in data/2024/2024-04-30 location can be found below:
 
 ```{r}
-install.packages("tidytuesdayR")
+#| label: load_dataset
+#| message: false
 
-tuesdata <- tidytuesdayR::tt_load('2024-04-30')
+#install.packages("tidytuesdayR")
 
-wwbi_data <- tuesdata$wwbi_data
-wwbi_series <- tuesdata$wwbi_series
-wwbi_country <- tuesdata$wwbi_country
-```
-
-```{r}
 tuesdata <- tidytuesdayR::tt_load('2024-04-30')
 
 wwbi_data <- tuesdata$wwbi_data
@@ -72,11 +81,11 @@ wwbi_country <- tuesdata$wwbi_country
 ```{r}
 # Clean the data downloaded from the WWBI website and 
 # load the three csv files into data folder 
-library(tidyverse)
-library(janitor)
-library(here)
-library(fs)
-library(withr)
+# library(tidyverse)
+# library(janitor)
+# library(here)
+# library(fs)
+# library(withr)
 
 working_dir <- here::here("data", "2024", "2024-04-30")
 
@@ -165,9 +174,9 @@ readr::write_csv(
 )
 ```
 
-The reason why I chose this dataset:
+### Reason for selecting this dataset
 
-I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies.
+I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies.
 
 ## Questions
 
