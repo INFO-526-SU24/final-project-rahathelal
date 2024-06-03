@@ -315,4 +315,12 @@ ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = incom
 
 ```
 
+-   Schedule:
+
+    -   Week starting June 3: perform all preliminary changes to data and plots, work on the review received from the professor on proposal
+
+    -   Week starting June 10: Complete the required research work and visualizations.
+
+    -   Week starting June 17: Work on the presentation and final review
+
 ## References
