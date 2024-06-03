@@ -12,6 +12,7 @@ format:
     code-overflow: wrap
     code-line-numbers: true
     embed-resources: true
+bibliography: references.bib
 editor: visual
 code-annotations: hover
 execute:
@@ -23,7 +24,6 @@ editor_options:
 
 ```{r}
 #| label: load-pkgs
-#| message: false
 
 if (!require ("pacman"))
   install.packages("pacman")
@@ -36,17 +36,11 @@ pacman::p_load(here,
                tidytuesdayR,
                dplyr,
                readr,
-               janitor)
+               janitor,
+               ggplot2)
 
 # Set a CRAN mirror
 options(repos = c(CRAN = "https://cloud.r-project.org"))
-
-# Load necessary libraries
-library(tidyverse)
-library(tidytuesdayR)
-library(dplyr)
-library(readr)
-library(janitor)
 
 ```
 
@@ -54,38 +48,42 @@ library(janitor)
 
 ```{r}
 #| label: explain_dataset
-#| message: false
 
 #A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
 
 #Make sure to load the data and use inline code for some of this information.
 ```
 
-I have selected the datasets from the Worldwide Bureaucracy Indicators (WWBI) for my final project. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries world wide. Some other variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries. I have downloaded the data from the required source and performed initial cleaning steps to get a well-defined data version for research needs. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions.
+I have selected the datasets from the Worldwide Bureaucracy Indicators (WWBI) for my final project and referred to @wwbi for more information. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries world wide. The three datasets in the respective csv files are named as "wwbi_data", "wwbi_series", and "wwbi_country". These datasets could be further explained below:
+
+-   **wwbi_data** consists of information on the country code, bureaucracy indicator code, year and numeric value of data.
+-   **wwbi_series** contains the bureaucracy indicator code and the name of the indicator
+-   **wwbi_country** dataset comprises of country code, detailed information on country's name, currency, region, income group etc. The other factual data on surveys conducted and latest data on core economy attributes such as agriculture, industries, trade, and population census are a part of this dataset.
+
+I have downloaded the data from the required github source and performed initial cleaning steps to get a well-defined data version for research questions and visualization. I took a few initial analytics steps, such as joining two datasets to gather information on specific indicators to help understand and develop project-related questions.
 
 The steps to download the required datasets and load them in data/2024/2024-04-30 location can be found below:
 
 ```{r}
-#| label: load_dataset
-#| message: false
+#| label: data_ingest
 
-#install.packages("tidytuesdayR")
-
+# import the data using package - tidytuesdayR
 tuesdata <- tidytuesdayR::tt_load('2024-04-30')
 
+# create separate dataframes for each parts - data, series and country
 wwbi_data <- tuesdata$wwbi_data
 wwbi_series <- tuesdata$wwbi_series
 wwbi_country <- tuesdata$wwbi_country
+
 ```
 
+Below is the data cleansing steps outlined in the source git repository @wwbigit
+
 ```{r}
+#| label: data_cleansing
+
 # Clean the data downloaded from the WWBI website and 
 # load the three csv files into data folder 
-# library(tidyverse)
-# library(janitor)
-# library(here)
-# library(fs)
-# library(withr)
 
 working_dir <- here::here("data", "2024", "2024-04-30")
 
@@ -176,16 +174,145 @@ readr::write_csv(
 
 ### Reason for selecting this dataset
 
-I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies.
+I am interested in understanding and researching data that could help gain insights into current scenarios of public policies and their actual on-ground implementation, understand the trends across geographies, and take lessons on how to improve or suggest improvements in country-specific needs and situations. I believe the analytics and visualizations created as part of the final project will help me understand and convey to a larger audience the correct and expected implementations of public policies. I gather from my initial analysis that some variables and indicators provide various public policy information that could help bureaucrats and government policymakers study and improve the current situation in their respective countries.
 
 ## Questions
 
 The two questions I want to answer:
 
-Research the variables and investigate if they can be applied or accepted uniformly across countries or if they will portray different pictures, i.e., convey dissimilar messages based on the underlying survey data. For example, the latest agricultural census data varies for every country. Not all have performed the census recently, so merging the analysis and concluding something specific for each would be difficult. Similarly, the four blog posts mentioned on the webpage only cover topics on jobs and gender participation but miss the point on other indicators valuable in understanding the importance of other indicator priorities. 
+Research the variables and investigate if they can be applied or accepted uniformly across countries or if they will portray different pictures, i.e., convey dissimilar messages based on the underlying survey data. For example, the latest agricultural census data varies for every country. Not all have performed the census recently, so merging the analysis and concluding something specific for each would be difficult. Similarly, the four blog posts mentioned on the webpage only cover topics on jobs and gender participation but miss the point on other indicators valuable in understanding the importance of other indicator priorities. Hence, out of the vast amount of information present in the combined datasets, I want to narrow down to two critical aspects and so my questions would be:
+
+### Question 1:
+
+Compare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?
+
+### Question 2:
+
+In context of public administration in different geographies, what is the relationship between income group and public administration efficiency?
 
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
 
-Join the data across the three datasets to understand the current situation based on the indicators of interest such as public jobs, gender participation in the workforce, and the role of recent agriculture, industrial, and trade surveys in further understanding if all the policies are aligned as expected.
+Join the data across the three datasets to build an understanding of underlying data based on the indicators of interest such as public jobs, gender participation in the workforce, and the role of recent agriculture, industrial, and trade surveys in further understanding if all the policies are aligned as expected.
+
+For question 1, I have merged the three datasets into a single dataset on indicator code and country code and then filtered it to check records for public sector employment. This data subset allows me to review the distribution in one region and then compare all the regions over the many years. The two plots have been shown one after the other. The data analysis will be continued to look for patterns in a particular country in a region and narrow down to specific factors affecting public sector employment.
+
+```{r}
+#| label: Question-1
+
+# replicate base data into three dataframes to analyze question 1
+country_df <- wwbi_country 
+data_df <- wwbi_data 
+series_df <- wwbi_series 
+
+# merge the three data frames on indicator code and country code 
+merged_df <- merge(data_df, series_df, by = "indicator_code")
+merged_df <- merge(merged_df, country_df, by = "country_code")
+
+# Public sector employment
+ps_empl_indicator <- merged_df %>%
+  filter(str_detect(str_to_lower(indicator_name), "public sector employment"))
+
+distinct_ps_empl_ind <- ps_empl_indicator %>%
+  distinct(indicator_code, indicator_name)
+
+print(distinct_ps_empl_ind)
+
+grouped_ps_empl_ind <- ps_empl_indicator %>%
+  group_by(indicator_code, indicator_name) %>%
+  summarise(record_count = n(), .groups = "drop") %>% 
+  arrange(desc(record_count))
+
+print(grouped_ps_empl_ind)
+
+# Filter for the public sector employment indicator
+employment_data <- merged_df %>%
+  filter(indicator_code == "BI.EMP.TOTL.PB.ZS")
+
+# print(employment_data)
+
+# Aggregate data by year and region
+# aggregated_data <- employment_data %>%
+#   group_by(year, region) %>%
+#   summarise(mean_value = mean(value, na.rm = TRUE))
+
+# Aggregate data by year and region
+aggregated_data <- employment_data %>%
+  group_by(year, region) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+aggregated_data_na <- aggregated_data %>%
+  filter(region == "North America")
+
+ggplot(aggregated_data_na, aes(x = year, y = mean_value, color = region)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Public Sector Employment as a Share of Total Employment Over Time by Region",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       color = "Region") +
+  theme_minimal()
+
+# Plot the data
+ggplot(aggregated_data, aes(x = year, y = mean_value, color = region)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Public Sector Employment as a Share of Total Employment Over Time by Region",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       color = "Region") +
+  theme_minimal()
+
+```
+
+For question 2, I have filtered out the indicators that pertain to either government, administration or efficiency and then merged that subset of data with the other datasets. The plot then shows the distribution of different income groups and public administration efficiency over years. However, I could see that few indicators do not fit the criteria of research here and needs to be removed/modified. For example, the indicators similar to "Number of employed employees, by industry: Public Administration" may or may not be of use when analyzing the overall efficiency of administration. There will be a change of strategy for these kind of scenarios.
+
+```{r}
+#| label: Question-2
+
+# Read the data
+
+country_df_2 <- wwbi_country 
+data_df_2 <- wwbi_data 
+series_df_2 <- wwbi_series 
+
+country_df_2 <- country_df_2 %>%
+  clean_names() %>%
+  remove_empty("cols")
+
+# efficiency_indicators <- series_df_2 %>%
+#   filter(str_detect(str_to_lower(indicator_name), "public administration efficiency"))
+
+# Check available indicators related to public administration or efficiency
+relevant_indicators <- series_df_2 %>%
+  filter(str_detect(str_to_lower(indicator_name), "administration|government|efficiency"))
+
+# View relevant indicators
+print(relevant_indicators)
+
+# Filter data_df for these indicators
+efficiency_data <- data_df_2 %>%
+  filter(indicator_code %in% relevant_indicators$indicator_code)
+
+# Merge data_df with country_df to get income group information
+merged_df_2 <- merge(efficiency_data, country_df_2, by = "country_code")
+
+# Aggregate and visualize the data
+efficiency_aggregated_2 <- merged_df_2 %>%
+  group_by(income_group, year) %>%
+  summarise(mean_efficiency = mean(value, na.rm = TRUE), .groups = "drop")
+
+# Plot the data
+ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = income_group)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Relationship Between Income Group and Public Administration Efficiency Over Time",
+       x = "Year",
+       y = "Public Administration Efficiency",
+       color = "Income Group") +
+  theme_minimal()
+
+```
+
+## References
