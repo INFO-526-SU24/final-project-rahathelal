@@ -22,6 +22,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+## Setup
+
 ```{r}
 #| label: load-pkgs
 
@@ -217,14 +219,14 @@ ps_empl_indicator <- merged_df %>%
 distinct_ps_empl_ind <- ps_empl_indicator %>%
   distinct(indicator_code, indicator_name)
 
-print(distinct_ps_empl_ind)
+# print(distinct_ps_empl_ind)
 
 grouped_ps_empl_ind <- ps_empl_indicator %>%
   group_by(indicator_code, indicator_name) %>%
   summarise(record_count = n(), .groups = "drop") %>% 
   arrange(desc(record_count))
 
-print(grouped_ps_empl_ind)
+# print(grouped_ps_empl_ind)
 
 # Filter for the public sector employment indicator
 employment_data <- merged_df %>%
@@ -277,9 +279,9 @@ country_df_2 <- wwbi_country
 data_df_2 <- wwbi_data 
 series_df_2 <- wwbi_series 
 
-country_df_2 <- country_df_2 %>%
-  clean_names() %>%
-  remove_empty("cols")
+# country_df_2 <- country_df_2 %>%
+#   clean_names() %>%
+#   remove_empty("cols")
 
 # efficiency_indicators <- series_df_2 %>%
 #   filter(str_detect(str_to_lower(indicator_name), "public administration efficiency"))
@@ -289,7 +291,7 @@ relevant_indicators <- series_df_2 %>%
   filter(str_detect(str_to_lower(indicator_name), "administration|government|efficiency"))
 
 # View relevant indicators
-print(relevant_indicators)
+# print(relevant_indicators)
 
 # Filter data_df for these indicators
 efficiency_data <- data_df_2 %>%
