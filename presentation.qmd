@@ -1,165 +1,200 @@
 ---
-title: "Project title"
+title: "Utilize Worldwide Bureaucracy Indicators to implement public policies"
 subtitle: "INFO 526 - Summer 2024 - Final Project"
-author: "Author names"
+author: "Mohammad Rahat Helal"
 title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-image: None
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
 format:
   revealjs:
-    theme:  ['data/customtheming.scss']
-  
+    theme:  "data/customtheming.scss"
 editor: visual
 execute:
-  echo: false
+  echo: true
 ---
 
 ```{r}
 #| label: load-packages
-#| include: false
+#| message: false
+#| output: false
+#| echo: false
 
-# Load packages here
-# pacman::p_load(tidymodels,
-#                tidyverse)
+if(!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(
+  here,
+  tidyverse,
+  ggrepel,
+  devtools,
+  tidytuesdayR,
+  dplyr,
+  readr,
+  janitor,
+  ggplot2,
+  showtext,
+  gridExtra
+  )
+
+options(width = 65)
+
+knitr::opts_chunk$set(
+  fig.asp = 0.618,
+  fig.align = "center",
+  fig.retina = 1,
+  fig.showtext = T
+)
 
 ```
 
 ```{r}
 #| label: setup
 #| include: false
+#| message: false
+#| output: false
+#| echo: false
 
 # Plot theme
-# ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
 # 
-# # For better figure resolution
-# knitr::opts_chunk$set(
-#   fig.retina = 3, 
-#   dpi = 300, 
-#   fig.width = 6, 
-#   fig.asp = 0.618 
-#   )
+# For better figure resolution
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  dpi = 300,
+  fig.width = 6,
+  fig.asp = 0.618
+  )
+
 ```
+
+## Introduction & Motivation
+
+-   Selected datasets from the Worldwide Bureaucracy Indicators (WWBI)
+-   Help gain insights into current scenarios of public policies
+-   Understand the trends across geographies
+-   How to improve or suggest improvements in country-specific needs and situations
+
+## Dataset - Worldwide Bureaucracy Indicators
 
 ```{r}
 #| label: load-data
-#| include: false
-# Load data here
-# data(mtcars)
-# mtcars$speed <- mtcars$hp / mtcars$wt
-# 
-# data("penguins")
-```
+#| message: false
+#| echo: false
+#| output: false
 
-# Using Quarto for presentations
+# Suppress all output during the data loading
+invisible(capture.output({
+  tuesdata <- tidytuesdayR::tt_load('2024-04-30')
+}))
 
-## Quarto
-
--   The presentation is created using the Quarto CLI
-
--   `##` sets the start of a new slide
-
-## Layouts
-
-You can use plain text
-
-::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
-:::
-
-::: {.column width="60%"}
-or in two columns
-:::
-:::
-
-[^1]: And add footnotes
-
--   like
-
--   this
-
-## Code
-
-```{r, echo=FALSE}
-# model <- lm(mpg ~ speed, data = mtcars) 
-# 
-# model |> tidy()
-# 
-# model |> glance()
+# create separate dataframes for each parts - data, series, and country
+wwbi_data <- tuesdata$wwbi_data
+wwbi_series <- tuesdata$wwbi_series
+wwbi_country <- tuesdata$wwbi_country
 
 ```
 
-## Plots
+-   **wwbi_data** information on the country code, bureaucracy indicator code, year and numeric value of data.
+-   **wwbi_series** the bureaucracy indicator code and the name of the indicator
+-   **wwbi_country** country code, detailed information on country's name, currency, region, income group etc.
+
+## Questions
+
+The two questions I want to answer:
+
+### Question 1:
+
+Compare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?
+
+### Question 2:
+
+In context of public administration in different geographies, what is the relationship between income group and public administration efficiency?
+
+## Visualization - 1
 
 ```{r}
-# penguins |>
-#   mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-#   ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-#   geom_point()
+#| label: Question-1
+#| message: false
+#| echo: false
+
+# replicate base data into three dataframes to analyze question 1
+country_df <- wwbi_country 
+data_df <- wwbi_data 
+series_df <- wwbi_series 
+
+# merge the three data frames on indicator code and country code 
+merged_df <- merge(data_df, series_df, by = "indicator_code")
+merged_df <- merge(merged_df, country_df, by = "country_code")
+
+# Public sector employment
+ps_empl_indicator <- merged_df %>%
+  filter(str_detect(str_to_lower(indicator_name), "public sector employment"))
+
+distinct_ps_empl_ind <- ps_empl_indicator %>%
+  distinct(indicator_code, indicator_name)
+
+# print(distinct_ps_empl_ind)
+
+grouped_ps_empl_ind <- ps_empl_indicator %>%
+  group_by(indicator_code, indicator_name) %>%
+  summarise(record_count = n(), .groups = "drop") %>% 
+  arrange(desc(record_count))
+
+# print(grouped_ps_empl_ind)
+
+# Filter for the public sector employment indicator
+employment_data <- merged_df %>%
+  filter(indicator_code == "BI.EMP.TOTL.PB.ZS")
+
+# print(employment_data)
+
+# Aggregate data by year and region
+# aggregated_data <- employment_data %>%
+#   group_by(year, region) %>%
+#   summarise(mean_value = mean(value, na.rm = TRUE))
+
+# Aggregate data by year and region
+aggregated_data <- employment_data %>%
+  group_by(year, region) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+aggregated_data_na <- aggregated_data %>%
+  filter(region == "North America")
+
+# Create plot_a with decreased width
+plot_a <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, color = region)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Public Sector Employment as a Share of\nTotal Employment Over Time by Region\nNorth America",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       color = "Region") +
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        axis.text.y = element_text(size = 9),
+        legend.position = "bottom",
+        plot.margin = margin(10, 10, 10, 10))  # Add margin around plot_a
+
+# Create plot_b with increased width
+plot_b <- ggplot(aggregated_data, aes(x = year, y = mean_value, color = region)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Public Sector Employment as a Share of\nTotal Employment Over Time by Region\nAll Geographies",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       color = "Region") +
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        axis.text.y = element_text(size = 9),
+        legend.position = "bottom",
+        plot.margin = margin(10, 10, 10, 10),
+        legend.key.size = unit(0.5, "lines"),   
+        legend.spacing.x = unit(0.2, "cm")    
+        )  
+
+# Display the plots side by side with adjusted widths
+grid.arrange(plot_a, plot_b, ncol = 2, widths = c(0.45, 0.55))
+
 ```
-
-## Plot and text
-
-::: columns
-::: {.column width="50%"}
--   Some text
-
--   goes here
-:::
-
-::: {.column width="50%"}
-```{r, warning=FALSE, fig.width=5.5}
-# penguins |>
-#   ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-#   geom_boxplot(linewidth = 0.75,
-#                outlier.size = 2.5) +
-#   theme_minimal(base_size = 15) +
-#   theme(legend.key.size = unit(0.8, "cm"))
-```
-:::
-:::
-
-# A new section...
-
-## Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-```{r}
-# penguins |> 
-#   head() |>
-#   kableExtra::kable() |>
-#   kableExtra::kable_styling()
-```
-
-## Images
-
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
-
-## Math Expressions {.smaller}
-
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
-
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
-
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
-
-Limitations:
-
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-2.  There should not be spaces after the opening `$` or before the closing `$`.
-
-# Wrap up
-
-## Feeling adventurous?
-
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
-
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.

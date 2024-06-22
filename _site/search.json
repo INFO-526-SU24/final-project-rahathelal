@@ -117,5 +117,40 @@
     "title": "Utilize Worldwide Bureaucracy Indicators to understand and implement public policies in various countries",
     "section": "",
     "text": "if (!require (\"pacman\"))\n  install.packages(\"pacman\")\n\n# use this line for installing/loading\npacman::p_load(here,\n               tidyverse,\n               ggrepel,\n               devtools,\n               tidytuesdayR,\n               dplyr,\n               readr,\n               janitor,\n               ggplot2)\n\n# Set a CRAN mirror\noptions(repos = c(CRAN = \"https://cloud.r-project.org\"))"
+  },
+  {
+    "objectID": "presentation.html#dataset-of-choice",
+    "href": "presentation.html#dataset-of-choice",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Dataset of choice",
+    "text": "Dataset of choice\n\n# Suppress all output during the data loading\ninvisible(capture.output({\n  tuesdata &lt;- tidytuesdayR::tt_load('2024-04-30')\n}))\n\n# create separate dataframes for each parts - data, series, and country\nwwbi_data &lt;- tuesdata$wwbi_data\nwwbi_series &lt;- tuesdata$wwbi_series\nwwbi_country &lt;- tuesdata$wwbi_country\n\nWorldwide Bureaucracy Indicators\n\nwwbi_data information on the country code, bureaucracy indicator code, year and numeric value of data.\nwwbi_series the bureaucracy indicator code and the name of the indicator\nwwbi_country country code, detailed information on country’s name, currency, region, income group etc."
+  },
+  {
+    "objectID": "presentation.html#questions",
+    "href": "presentation.html#questions",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Questions",
+    "text": "Questions\nThe two questions I want to answer:\nQuestion 1:\nCompare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?\nQuestion 2:\nIn context of public administration in different geographies, what is the relationship between income group and public administration efficiency?"
+  },
+  {
+    "objectID": "presentation.html#dataset---worldwide-bureaucracy-indicators",
+    "href": "presentation.html#dataset---worldwide-bureaucracy-indicators",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Dataset - Worldwide Bureaucracy Indicators",
+    "text": "Dataset - Worldwide Bureaucracy Indicators\n\nwwbi_data information on the country code, bureaucracy indicator code, year and numeric value of data.\nwwbi_series the bureaucracy indicator code and the name of the indicator\nwwbi_country country code, detailed information on country’s name, currency, region, income group etc."
+  },
+  {
+    "objectID": "presentation.html#introduction-motivation",
+    "href": "presentation.html#introduction-motivation",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Introduction & Motivation",
+    "text": "Introduction & Motivation\n\nSelected datasets from the Worldwide Bureaucracy Indicators (WWBI)\nHelp gain insights into current scenarios of public policies\nUnderstand the trends across geographies\nHow to improve or suggest improvements in country-specific needs and situations"
+  },
+  {
+    "objectID": "presentation.html#visualization---1",
+    "href": "presentation.html#visualization---1",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Visualization - 1",
+    "text": "Visualization - 1"
   }
 ]
