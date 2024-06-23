@@ -48,14 +48,6 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 ## Dataset
 
-```{r}
-#| label: explain_dataset
-
-#A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
-
-#Make sure to load the data and use inline code for some of this information.
-```
-
 I have selected the datasets from the Worldwide Bureaucracy Indicators (WWBI) for my final project and referred to @wwbi for more information. Three underlying datasets (merged on bureaucratic indicators and countries) cover the overall aspect of understanding jobs and salary information for almost all countries world wide. The three datasets in the respective csv files are named as "wwbi_data", "wwbi_series", and "wwbi_country". These datasets could be further explained below:
 
 -   **wwbi_data** consists of information on the country code, bureaucracy indicator code, year and numeric value of data.
@@ -76,6 +68,10 @@ invisible(capture.output(tuesdata <- tidytuesdayR::tt_load('2024-04-30')))
 wwbi_data <- tuesdata$wwbi_data
 wwbi_series <- tuesdata$wwbi_series
 wwbi_country <- tuesdata$wwbi_country
+
+# glimpse(wwbi_country)
+# glimpse(wwbi_series)
+# glimpse(wwbi_data)
 
 ```
 
@@ -207,6 +203,13 @@ Join the data across the three datasets to build an understanding of underlying 
 
 For question 1, I have merged the three datasets into a single dataset on indicator code and country code and then filtered it to check records for public sector employment. This data subset allows me to review the distribution in one region and then compare all the regions over the many years. The two plots have been shown one after the other. The data analysis will be continued to look for patterns in a particular country in a region and narrow down to specific factors affecting public sector employment.
 
+The columns that will be used for answering this question:
+
+-   indicator_name: it is a char data type and the field represents indicator names such as "Public Sector Employment" for this question.
+-   indicator_code: this is also a char data type and it depicts the codes for various bureaucracy indicators such as "BI.EMP.TOTL.PB.ZS" used for answering question 1.
+-   year: it is an integer data type and consists of years for all records.
+-   region: it is a char data type and has all geographies contained in it.
+
 ```{r}
 #| label: Question-1
 
@@ -276,6 +279,14 @@ ggplot(aggregated_data, aes(x = year, y = mean_value, color = region)) +
 ```
 
 For question 2, I have filtered out the indicators that pertain to either government, administration or efficiency and then merged that subset of data with the other datasets. The plot then shows the distribution of different income groups and public administration efficiency over years. However, I could see that few indicators do not fit the criteria of research here and needs to be removed/modified. For example, the indicators similar to "Number of employed employees, by industry: Public Administration" may or may not be of use when analyzing the overall efficiency of administration. There will be a change of strategy for these kind of scenarios.
+
+The fields selected for the analysis of this question are as follow:
+
+-   indicator_name: it is a char data type and the field represents indicator names such as those similar to "Administration" for this question.
+-   indicator_code: this is also a char data type and it depicts the codes for various bureaucracy indicators, similar to previous question.
+-   country_code: this is a char data type and has a three letter code for each country.
+-   income_group: a char data type field that shows grouping of income for different population sizes.
+-   year: it is an integer data type and consists of years for all records.
 
 ```{r}
 #| label: Question-2
