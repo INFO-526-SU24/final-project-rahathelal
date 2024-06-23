@@ -280,7 +280,7 @@ ggplot(aggregated_data, aes(x = year, y = mean_value, color = region)) +
 
 For question 2, I have filtered out the indicators that pertain to either government, administration or efficiency and then merged that subset of data with the other datasets. The plot then shows the distribution of different income groups and public administration efficiency over years. However, I could see that few indicators do not fit the criteria of research here and needs to be removed/modified. For example, the indicators similar to "Number of employed employees, by industry: Public Administration" may or may not be of use when analyzing the overall efficiency of administration. There will be a change of strategy for these kind of scenarios.
 
-The fields selected for the analysis of this question are as follow:
+The fields selected for the analysis of this question and plotting a suitable graph are as follow:
 
 -   indicator_name: it is a char data type and the field represents indicator names such as those similar to "Administration" for this question.
 -   indicator_code: this is also a char data type and it depicts the codes for various bureaucracy indicators, similar to previous question.
