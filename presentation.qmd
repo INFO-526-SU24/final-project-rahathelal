@@ -96,9 +96,9 @@ wwbi_country <- tuesdata$wwbi_country
 
 ```
 
--   **wwbi_data** information on the country code, bureaucracy indicator code, year and numeric value of data.
--   **wwbi_series** the bureaucracy indicator code and the name of the indicator
--   **wwbi_country** country code, detailed information on country's name, currency, region, income group etc.
+-   **wwbi_data** - information on the country code, bureaucracy indicator code, year and numeric value of data.
+-   **wwbi_series** - the bureaucracy indicator code and the name of the indicator
+-   **wwbi_country** - country code, detailed information on country's name, currency, region, income group etc.
 
 ## Questions
 
@@ -115,7 +115,7 @@ In context of public administration in different geographies, what is the relati
 ## Visualization - 1
 
 ```{r}
-#| label: Question-1
+#| label: Visualization-1
 #| message: false
 #| echo: false
 
@@ -195,6 +195,57 @@ plot_b <- ggplot(aggregated_data, aes(x = year, y = mean_value, color = region))
         )  
 
 # Display the plots side by side with adjusted widths
-grid.arrange(plot_a, plot_b, ncol = 2, widths = c(0.45, 0.55))
+grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
+
+```
+
+## Visualization - 2
+
+```{r}
+#| label: Visualization-2
+#| message: false
+#| echo: false
+
+# Read the data
+
+country_df_2 <- wwbi_country 
+data_df_2 <- wwbi_data 
+series_df_2 <- wwbi_series 
+
+# country_df_2 <- country_df_2 %>%
+#   clean_names() %>%
+#   remove_empty("cols")
+
+# efficiency_indicators <- series_df_2 %>%
+#   filter(str_detect(str_to_lower(indicator_name), "public administration efficiency"))
+
+# Check available indicators related to public administration or efficiency
+relevant_indicators <- series_df_2 %>%
+  filter(str_detect(str_to_lower(indicator_name), "administration|government|efficiency"))
+
+# View relevant indicators
+# print(relevant_indicators)
+
+# Filter data_df for these indicators
+efficiency_data <- data_df_2 %>%
+  filter(indicator_code %in% relevant_indicators$indicator_code)
+
+# Merge data_df with country_df to get income group information
+merged_df_2 <- merge(efficiency_data, country_df_2, by = "country_code")
+
+# Aggregate and visualize the data
+efficiency_aggregated_2 <- merged_df_2 %>%
+  group_by(income_group, year) %>%
+  summarise(mean_efficiency = mean(value, na.rm = TRUE), .groups = "drop")
+
+# Plot the data
+ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = income_group)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Relationship Between Income Group and\nPublic Administration Efficiency Over Time",
+       x = "Year",
+       y = "Public Administration Efficiency",
+       color = "Income Group") +
+  theme_minimal()
 
 ```

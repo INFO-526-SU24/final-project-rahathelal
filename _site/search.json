@@ -109,7 +109,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This project was developed by [Team Name] For INFO 526 - Data Analysis and Visualization at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.\n\nTeam member 1: One sentence description of Team member 1 (e.g., year, major, etc.).\nTeam member 2: One sentence description of Team member 2 (e.g., year, major, etc.).\nTeam member 3: One sentence description of Team member 3 (e.g., year, major, etc.).\nTeam member 4: One sentence description of Team member 4 (e.g., year, major, etc.)."
+    "text": "This project was developed by Mohammad Rahat Helal For INFO 526 - Data Analysis and Visualization at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.\n\nMohammad Rahat Helal: I have just started my MS in Information Science journey at the UofA, it is my first year."
   },
   {
     "objectID": "proposal.html#setup",
@@ -137,7 +137,7 @@
     "href": "presentation.html#dataset---worldwide-bureaucracy-indicators",
     "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "Dataset - Worldwide Bureaucracy Indicators",
-    "text": "Dataset - Worldwide Bureaucracy Indicators\n\nwwbi_data information on the country code, bureaucracy indicator code, year and numeric value of data.\nwwbi_series the bureaucracy indicator code and the name of the indicator\nwwbi_country country code, detailed information on country’s name, currency, region, income group etc."
+    "text": "Dataset - Worldwide Bureaucracy Indicators\n\nwwbi_data - information on the country code, bureaucracy indicator code, year and numeric value of data.\nwwbi_series - the bureaucracy indicator code and the name of the indicator\nwwbi_country - country code, detailed information on country’s name, currency, region, income group etc."
   },
   {
     "objectID": "presentation.html#introduction-motivation",
@@ -159,5 +159,12 @@
     "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "",
     "text": "Selected datasets from the Worldwide Bureaucracy Indicators (WWBI)\nHelp gain insights into current scenarios of public policies\nUnderstand the trends across geographies\nHow to improve or suggest improvements in country-specific needs and situations"
+  },
+  {
+    "objectID": "presentation.html#visualization---2",
+    "href": "presentation.html#visualization---2",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Visualization - 2",
+    "text": "Visualization - 2"
   }
 ]

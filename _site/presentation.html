@@ -349,9 +349,9 @@ Mohammad Rahat Helal
 <section id="dataset---worldwide-bureaucracy-indicators" class="slide level2">
 <h2>Dataset - Worldwide Bureaucracy Indicators</h2>
 <ul>
-<li><strong>wwbi_data</strong> information on the country code, bureaucracy indicator code, year and numeric value of data.</li>
-<li><strong>wwbi_series</strong> the bureaucracy indicator code and the name of the indicator</li>
-<li><strong>wwbi_country</strong> country code, detailed information on country’s name, currency, region, income group etc.</li>
+<li><strong>wwbi_data</strong> - information on the country code, bureaucracy indicator code, year and numeric value of data.</li>
+<li><strong>wwbi_series</strong> - the bureaucracy indicator code and the name of the indicator</li>
+<li><strong>wwbi_country</strong> - country code, detailed information on country’s name, currency, region, income group etc.</li>
 </ul>
 </section>
 <section id="questions" class="slide level2">
@@ -365,8 +365,12 @@ Mohammad Rahat Helal
 <section id="visualization---1" class="slide level2">
 <h2>Visualization - 1</h2>
 
+<img data-src="presentation_files/figure-revealjs/Visualization-1-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
+<section id="visualization---2" class="slide level2">
+<h2>Visualization - 2</h2>
 
-<img data-src="presentation_files/figure-html/Question-1-1.png" width="1800" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+
+<img data-src="presentation_files/figure-revealjs/Visualization-2-1.png" width="1800" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 
 </div>
 </section>
@@ -581,6 +585,44 @@ Mohammad Rahat Helal
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

@@ -6,4 +6,4 @@ editor: visual
 
 This project was developed by **Mohammad Rahat Helal** For [INFO 526 - Data Analysis and Visualization](https://datavizaz.org/) at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.
 
--   Mohammad Rahat Helal: I have just started my MS in Information Science journey at the UofA, it is my first year.
+-   Mohammad Rahat Helal: I have just started my MS in Information Science journey at the UofA, this is my first year here and I look forward to a great learning experience.
