@@ -69,10 +69,10 @@ The steps to download the required datasets and load them in data/2024/2024-04-3
 ```{r}
 #| label: data_ingest
 
-# import the data using package - tidytuesdayR
-tuesdata <- tidytuesdayR::tt_load('2024-04-30')
+# download the three files containing WWBI data 
+invisible(capture.output(tuesdata <- tidytuesdayR::tt_load('2024-04-30')))
 
-# create separate dataframes for each parts - data, series and country
+# Create separate dataframes for each part - data, series, and country
 wwbi_data <- tuesdata$wwbi_data
 wwbi_series <- tuesdata$wwbi_series
 wwbi_country <- tuesdata$wwbi_country
@@ -91,11 +91,18 @@ working_dir <- here::here("data", "2024", "2024-04-30")
 
 url <- "https://databank.worldbank.org/data/download/WWBI_CSV.zip"
 
-file_path <- withr::local_tempfile(fileext = ".zip")
-download.file(url, file_path)
+# file_path <- withr::local_tempfile(fileext = ".zip")
+# download.file(url, file_path, quiet = TRUE)
+# 
+# extract_dir <- withr::local_tempdir("csvs")
+# unzip(file_path, exdir = extract_dir)
 
-extract_dir <- withr::local_tempdir("csvs")
-unzip(file_path, exdir = extract_dir)
+suppressMessages({
+  file_path <- withr::local_tempfile(fileext = ".zip")
+  download.file(url, file_path, quiet = TRUE)
+  extract_dir <- withr::local_tempdir("csvs")
+  unzip(file_path, exdir = extract_dir)
+})
 
 wwbi_country <- readr::read_csv(
   fs::path(extract_dir, "WWBICountry.csv")
