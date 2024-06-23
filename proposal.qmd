@@ -337,10 +337,18 @@ ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = incom
 
 -   Schedule:
 
-    -   Week starting June 3: perform all preliminary changes to data and plots, work on the review received from the professor on proposal
+    -   Week starting June 3: Review feedback on the proposal and close any remaining issues. Work on the presentation in presentation.qmd and write-up in index.qmd.
 
-    -   Week starting June 10: Complete the required research work and visualizations.
+    -   Week starting June 10: Work on project
 
-    -   Week starting June 17: Work on the presentation and final review
+    -   Week starting June 17: Finalize your write-up, presentation, and your project website. Record presentation for class by Monday (June 24th)
+
+        | Task Name                       | Status      | Assignee             | Due     | Priority | Summary                                                                                                                |
+        |-----------|----------|------------|---------|---------|------------------------------|
+        | Preliminary data analysis       | Completed   | Mohammad Rahat Helal | June 10 | High     | The underlying data from the three wwbi datasets have been analyzed, fields selected for both questions to be answered |
+        | Analyze data and generate plots | Completed   | Mohammad Rahat Helal | June 17 | High     | Come up with suitable plots for the two questions                                                                      |
+        | Finalize plots and ppt          | In Progress | Mohammad Rahat Helal | June 24 | High     | Complete the plots for two questions and work on presentation                                                          |
+
+        : Workflow
 
 ## References
