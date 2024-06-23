@@ -1,11 +1,11 @@
 ---
-title: "Project Title"
+title: "Utilize Worldwide Bureaucracy Indicators to implement public policies"
 subtitle: "INFO 526 - Summer 2024 - Final Project"
 author: 
-  - name: "Team name"
+  - name: "Mohammad Rahat Helal"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "This project aims to discover efficient public policies implementation through the analysis of bureaucracy indicators around the world"
 format:
    html:
     code-tools: true
@@ -18,7 +18,3 @@ execute:
 ---
 
 ## Abstract
-
-Add project abstract here.
-
-
