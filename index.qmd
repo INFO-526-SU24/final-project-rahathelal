@@ -11,6 +11,7 @@ format:
     code-tools: true
     code-overflow: wrap
     embed-resources: true
+bibliography: references.bib
 editor: visual
 execute:
   warning: false
@@ -18,3 +19,171 @@ execute:
 ---
 
 ## Abstract
+
+The available data on public sector employment globally suggests that it forms one of the significant job generators and seems necessary for any economy. Referring to @baig2021introducing, the World Bank developed a dataset called "Worldwide Bureaucracy Indicators," or WWBI, which consists of information on public and private sector income, employment, and employee wages further divided into sub-categories. Although the original dataset consists of more than 150 indicators of bureaucracy, the subset of that data is available for us to delve deeper into a few critical indicators for evaluating economic growth and policymaking. The dataset used for this project has nearly 20 such variables for all participating countries that help us answer a few questions. One of the starting points for this project is understanding the year-on-year trend of public sector employment across geographies and a possible comparison between them.
+
+Furthermore, the focus is shifted to a single country, and the rise or fall of employment trends through these years is assessed. Based on the outcome, the following research will establish the reasons behind such a scenario and help policymakers accordingly. The next topic to be discussed is the relationship between the efficiency of public administration and income levels in various countries. The exercise analyzes underlying data and reviews whether efficiency relates to income groupings.
+
+### Question 1:
+
+Compare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?
+
+### Question 2:
+
+In context of public administration in different geographies, what is the relationship between income group and public administration efficiency?
+
+### Visualization - 1
+
+```{r}
+#| label: load-packages
+#| message: false
+#| output: false
+#| echo: false
+
+if(!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(
+  here,
+  tidyverse,
+  ggrepel,
+  devtools,
+  tidytuesdayR,
+  dplyr,
+  readr,
+  janitor,
+  ggplot2,
+  showtext,
+  gridExtra,
+  sf,
+  rnaturalearth,
+  rnaturalearthdata
+  )
+
+options(width = 65)
+
+knitr::opts_chunk$set(
+  fig.asp = 0.618,
+  fig.align = "center",
+  fig.retina = 1,
+  fig.showtext = T
+)
+
+```
+
+```{r}
+#| label: Visualization-1
+#| message: false
+#| echo: false
+#| output: false
+
+# Suppress all output during the data loading
+invisible(capture.output({
+  tuesdata <- tidytuesdayR::tt_load('2024-04-30')
+}))
+
+# create separate dataframes for each parts - data, series, and country
+wwbi_data <- tuesdata$wwbi_data
+wwbi_series <- tuesdata$wwbi_series
+wwbi_country <- tuesdata$wwbi_country
+
+# glimpse(wwbi_data)
+# glimpse(wwbi_series)
+# glimpse(wwbi_country)
+
+# replicate base data into three dataframes to analyze question 1
+country_df <- wwbi_country 
+data_df <- wwbi_data 
+series_df <- wwbi_series 
+
+# merge the three data frames on indicator code and country code 
+merged_df <- merge(data_df, series_df, by = "indicator_code")
+merged_df <- merge(merged_df, country_df, by = "country_code")
+
+# Public sector employment
+ps_empl_indicator <- merged_df %>%
+  filter(str_detect(str_to_lower(indicator_name), "public sector employment"))
+
+distinct_ps_empl_ind <- ps_empl_indicator %>%
+  distinct(indicator_code, indicator_name)
+
+# print(distinct_ps_empl_ind)
+
+grouped_ps_empl_ind <- ps_empl_indicator %>%
+  group_by(indicator_code, indicator_name) %>%
+  summarise(record_count = n(), .groups = "drop") %>% 
+  arrange(desc(record_count))
+
+# print(grouped_ps_empl_ind)
+
+# Filter for the public sector employment indicator (share of total employment)
+employment_data_tot <- merged_df %>%
+  filter(indicator_code == "BI.EMP.TOTL.PB.ZS")
+
+# Filter for the public sector employment indicator  (share of total and paid employment)  
+empl_data_tot_paid <- merged_df %>%
+  filter(indicator_code %in% c("BI.EMP.TOTL.PB.ZS", "BI.EMP.PWRK.PB.ZS", "BI.EMP.FRML.PB.ZS", "BI.EMP.TOTL.PB.UR.ZS", "BI.EMP.TOTL.PB.RU.ZS"))
+
+# print(empl_data_tot_paid)
+
+# Aggregate data by year and region - for All geogrpahies
+aggregated_data <- employment_data_tot %>%
+  group_by(year, region) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+# # Aggregate data by year, region, and indicator_code - for NA
+# aggregated_data_na <- empl_data_tot_paid %>%
+#   group_by(year, region, indicator_code) %>%
+#   summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+# aggregated_data_na <- aggregated_data_na %>%
+#   filter(region == "North America")
+
+# print(aggregated_data_na)
+
+# # Create plot_a with decreased width and separate colors for each indicator_code
+# plot_a <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, color = indicator_code, linetype = indicator_code)) +
+#   geom_line() +
+#   geom_point() +
+#   facet_wrap(~ region) +
+#   labs(title = "Public Sector Employment as a Share of\nTotal Employment Over Time by Region\nNorth America",
+#        x = "Year",
+#        y = "Public Sector Employment Share (%)",
+#        color = "Indicator Code",
+#        linetype = "Indicator Code") +
+#   theme_minimal() +
+#   theme(text = element_text(size = 8),
+#         axis.text.y = element_text(size = 9),
+#         legend.position = "bottom",
+#         legend.title = element_blank(),
+#         legend.text = element_text(size = 8),
+#         legend.spacing.y = unit(0.5, 'lines'),
+#         plot.margin = margin(10, 10, 10, 10)) +  # Add margin around plot_a
+#   guides(color = guide_legend(nrow = 3), linetype = guide_legend(nrow = 3))
+# 
+# print(plot_a)
+
+# Create plot_b with increased width
+plot_b <- ggplot(aggregated_data, aes(x = year, y = mean_value, color = region)) +
+  geom_line() +
+  scale_x_continuous(breaks = unique(aggregated_data$year)) +
+  geom_point() +
+  labs(title = "Public Sector Employment as a Share of Total Employment Over Time by Region All Geographies",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       color = "Region") +
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        axis.text.y = element_text(size = 9),
+        legend.position = "bottom",
+        plot.margin = margin(10, 10, 10, 10),
+        legend.key.size = unit(0.7, "lines"),
+        legend.spacing.x = unit(0.5, "cm")
+        )
+
+print(plot_b)
+
+# Display the plots side by side with adjusted widths
+# grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
+
+```

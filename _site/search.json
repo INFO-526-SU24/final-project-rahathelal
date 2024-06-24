@@ -30,16 +30,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Project Title",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "",
-    "text": "Add project abstract here."
+    "text": "The available data on public sector employment globally suggests that it forms one of the significant job generators and seems necessary for any economy. Referring to Baig et al. (2021), the World Bank developed a dataset called “Worldwide Bureaucracy Indicators,” or WWBI, which consists of information on public and private sector income, employment, and employee wages further divided into sub-categories. Although the original dataset consists of more than 150 indicators of bureaucracy, the subset of that data is available for us to delve deeper into a few critical indicators for evaluating economic growth and policymaking. The dataset used for this project has nearly 20 such variables for all participating countries that help us answer a few questions. One of the starting points for this project is understanding the year-on-year trend of public sector employment across geographies and a possible comparison between them.\nFurthermore, the focus is shifted to a single country, and the rise or fall of employment trends through these years is assessed. Based on the outcome, the following research will establish the reasons behind such a scenario and help policymakers accordingly. The next topic to be discussed is the relationship between the efficiency of public administration and income levels in various countries. The exercise analyzes underlying data and reviews whether efficiency relates to income groupings.\n\n\nCompare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?\n\n\n\nIn context of public administration in different geographies, what is the relationship between income group and public administration efficiency?"
   },
   {
     "objectID": "index.html#abstract",
     "href": "index.html#abstract",
-    "title": "Project Title",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "",
-    "text": "Add project abstract here."
+    "text": "The available data on public sector employment globally suggests that it forms one of the significant job generators and seems necessary for any economy. Referring to Baig et al. (2021), the World Bank developed a dataset called “Worldwide Bureaucracy Indicators,” or WWBI, which consists of information on public and private sector income, employment, and employee wages further divided into sub-categories. Although the original dataset consists of more than 150 indicators of bureaucracy, the subset of that data is available for us to delve deeper into a few critical indicators for evaluating economic growth and policymaking. The dataset used for this project has nearly 20 such variables for all participating countries that help us answer a few questions. One of the starting points for this project is understanding the year-on-year trend of public sector employment across geographies and a possible comparison between them.\nFurthermore, the focus is shifted to a single country, and the rise or fall of employment trends through these years is assessed. Based on the outcome, the following research will establish the reasons behind such a scenario and help policymakers accordingly. The next topic to be discussed is the relationship between the efficiency of public administration and income levels in various countries. The exercise analyzes underlying data and reviews whether efficiency relates to income groupings.\n\n\nCompare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?\n\n\n\nIn context of public administration in different geographies, what is the relationship between income group and public administration efficiency?"
   },
   {
     "objectID": "presentation.html#quarto",
@@ -109,7 +109,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This project was developed by Mohammad Rahat Helal For INFO 526 - Data Analysis and Visualization at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.\n\nMohammad Rahat Helal: I have just started my MS in Information Science journey at the UofA, it is my first year."
+    "text": "This project was developed by Mohammad Rahat Helal For INFO 526 - Data Analysis and Visualization at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.\n\nMohammad Rahat Helal: I have just started my MS in Information Science journey at the UofA, this is my first year here and I look forward to a great learning experience."
   },
   {
     "objectID": "proposal.html#setup",
@@ -137,14 +137,14 @@
     "href": "presentation.html#dataset---worldwide-bureaucracy-indicators",
     "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "Dataset - Worldwide Bureaucracy Indicators",
-    "text": "Dataset - Worldwide Bureaucracy Indicators\n\nwwbi_data - information on the country code, bureaucracy indicator code, year and numeric value of data.\nwwbi_series - the bureaucracy indicator code and the name of the indicator\nwwbi_country - country code, detailed information on country’s name, currency, region, income group etc."
+    "text": "Dataset - Worldwide Bureaucracy Indicators\nwwbi_data, wwbi_series, and wwbi_country\n\n\nRows: 141,985\nColumns: 4\n$ country_code   &lt;chr&gt; \"AFG\", \"AFG\", \"AFG\", \"AFG\", \"AFG\", \"AFG\"…\n$ indicator_code &lt;chr&gt; \"BI.WAG.PRVS.FM.SM\", \"BI.WAG.PRVS.FM.SM\"…\n$ year           &lt;dbl&gt; 2007, 2013, 2007, 2013, 2007, 2013, 2007…\n$ value          &lt;dbl&gt; 1.110299349, 0.649133205, 0.533333361, 0…\n\n\nRows: 302\nColumns: 2\n$ indicator_code &lt;chr&gt; \"BI.EMP.FRML.CA.PB.ZS\", \"BI.EMP.FRML.ED.…\n$ indicator_name &lt;chr&gt; \"Core Public Administration workers, as …\n\n\nRows: 202\nColumns: 29\n$ country_code                                      &lt;chr&gt; \"ABW\"…\n$ short_name                                        &lt;chr&gt; \"Arub…\n$ table_name                                        &lt;chr&gt; \"Arub…\n$ long_name                                         &lt;chr&gt; \"Arub…\n$ x2_alpha_code                                     &lt;chr&gt; \"AW\",…\n$ currency_unit                                     &lt;chr&gt; \"Arub…\n$ special_notes                                     &lt;chr&gt; NA, \"…\n$ region                                            &lt;chr&gt; \"Lati…\n$ income_group                                      &lt;chr&gt; \"High…\n$ wb_2_code                                         &lt;chr&gt; \"AW\",…\n$ national_accounts_base_year                       &lt;dbl&gt; 2013,…\n$ national_accounts_reference_year                  &lt;dbl&gt; NA, N…\n$ sna_price_valuation                               &lt;chr&gt; \"Valu…\n$ lending_category                                  &lt;chr&gt; NA, \"…\n$ other_groups                                      &lt;chr&gt; NA, \"…\n$ system_of_national_accounts                       &lt;dbl&gt; 1993,…\n$ balance_of_payments_manual_in_use                 &lt;chr&gt; \"BPM6…\n$ external_debt_reporting_status                    &lt;chr&gt; NA, \"…\n$ system_of_trade                                   &lt;chr&gt; \"Gene…\n$ government_accounting_concept                     &lt;chr&gt; NA, \"…\n$ imf_data_dissemination_standard                   &lt;chr&gt; \"Enha…\n$ latest_household_survey                           &lt;chr&gt; NA, \"…\n$ source_of_most_recent_income_and_expenditure_data &lt;chr&gt; NA, \"…\n$ vital_registration_complete                       &lt;lgl&gt; TRUE,…\n$ latest_agricultural_census                        &lt;dbl&gt; NA, N…\n$ latest_industrial_data                            &lt;dbl&gt; NA, N…\n$ latest_trade_data                                 &lt;dbl&gt; 2018,…\n$ latest_population_census_year                     &lt;dbl&gt; 2020,…\n$ latest_population_census_notes                    &lt;chr&gt; \"(exp…"
   },
   {
     "objectID": "presentation.html#introduction-motivation",
     "href": "presentation.html#introduction-motivation",
     "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "Introduction & Motivation",
-    "text": "Introduction & Motivation\n\nSelected datasets from the Worldwide Bureaucracy Indicators (WWBI)\nHelp gain insights into current scenarios of public policies\nUnderstand the trends across geographies\nHow to improve or suggest improvements in country-specific needs and situations"
+    "text": "Introduction & Motivation\n\nSelected datasets from Worldwide Bureaucracy Indicators (WWBI)\nContain wages, income and employment information in public and private sector globally\nUtilized to create insights into current outcomes of public policies\nUnderstand the trends across geographies, and focus on a particular country\nHow to improve or suggest improvements in country-specific needs and situations"
   },
   {
     "objectID": "presentation.html#visualization---1",
@@ -158,7 +158,7 @@
     "href": "presentation.html",
     "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "",
-    "text": "Selected datasets from the Worldwide Bureaucracy Indicators (WWBI)\nHelp gain insights into current scenarios of public policies\nUnderstand the trends across geographies\nHow to improve or suggest improvements in country-specific needs and situations"
+    "text": "Selected datasets from Worldwide Bureaucracy Indicators (WWBI)\nContain wages, income and employment information in public and private sector globally\nUtilized to create insights into current outcomes of public policies\nUnderstand the trends across geographies, and focus on a particular country\nHow to improve or suggest improvements in country-specific needs and situations"
   },
   {
     "objectID": "presentation.html#visualization---2",
@@ -166,5 +166,26 @@
     "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
     "section": "Visualization - 2",
     "text": "Visualization - 2"
+  },
+  {
+    "objectID": "presentation.html#visualization---3",
+    "href": "presentation.html#visualization---3",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Visualization - 3",
+    "text": "Visualization - 3"
+  },
+  {
+    "objectID": "presentation.html#visualization---4",
+    "href": "presentation.html#visualization---4",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Visualization - 4",
+    "text": "Visualization - 4"
+  },
+  {
+    "objectID": "presentation.html#visualization---5",
+    "href": "presentation.html#visualization---5",
+    "title": "Utilize Worldwide Bureaucracy Indicators to implement public policies",
+    "section": "Visualization - 5",
+    "text": "Visualization - 5"
   }
 ]
