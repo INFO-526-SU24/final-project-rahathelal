@@ -81,7 +81,7 @@ knitr::opts_chunk$set(
 -   Understand the trends across geographies, and focus on a particular country
 -   How to improve or suggest improvements in country-specific needs and situations
 
-## Dataset - Worldwide Bureaucracy Indicators {.smaller}
+## WWBI datasets {.smaller}
 
 ```{r}
 #| label: load-data
@@ -113,7 +113,6 @@ options(width = 200)  # You can increase this number to a value that suits your 
 glimpse(wwbi_data)
 glimpse(wwbi_series)
 glimpse(wwbi_country)
-
 
 ```
 
@@ -303,7 +302,7 @@ ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, group = incom
 
 ## Conclusions and Future Works
 
--   Researched and plott the trend of public sector employment over the years for all geographies
+-   Researched and plot the trend of public sector employment over the years for all geographies
 -   Focus on several indicators between Canada and USA over the years
 -   Establish a relationship between different income groups and public administration efficiency over the years for all regions
 -   Research the disparities in income groups by gender, wage premium, and other indicators

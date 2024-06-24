@@ -1,5 +1,5 @@
 ---
-title: "Utilize Worldwide Bureaucracy Indicators to implement public policies"
+title: "Research Worldwide Bureaucracy Indicators to help implement efficient public policies"
 subtitle: "INFO 526 - Summer 2024 - Final Project"
 author: 
   - name: "Mohammad Rahat Helal"

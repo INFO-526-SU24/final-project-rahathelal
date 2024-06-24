@@ -1,5 +1,5 @@
 ---
-title: "Utilize Worldwide Bureaucracy Indicators to understand and implement public policies in various countries"
+title: "Research Worldwide Bureaucracy Indicators to help implement efficient public policies"
 subtitle: "Proposal"
 author: 
   - name: "Mohammad Rahat Helal"
