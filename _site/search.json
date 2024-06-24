@@ -59,8 +59,8 @@
     "objectID": "presentation.html#introduction-motivation",
     "href": "presentation.html#introduction-motivation",
     "title": "Research Worldwide Bureaucracy Indicators to help implement efficient public policies",
-    "section": "Introduction & Motivation",
-    "text": "Introduction & Motivation\n\nSelected datasets from Worldwide Bureaucracy Indicators (WWBI)\nContain wages, income and employment information in public and private sector globally\nUtilized to create insights into current outcomes of public policies\nUnderstand the trends across geographies, and focus on a particular country\nHow to improve or suggest improvements in country-specific needs and situations"
+    "section": "",
+    "text": "Selected datasets from Worldwide Bureaucracy Indicators (WWBI)\nContain wages, income and employment information in public and private sector globally\nUtilized to create insights into current outcomes of public policies\nUnderstand the trends across geographies, and focus on a particular country\nHow to improve or suggest improvements in country-specific needs and situations"
   },
   {
     "objectID": "presentation.html#wwbi-datasets",
@@ -74,7 +74,7 @@
     "href": "presentation.html#questions",
     "title": "Research Worldwide Bureaucracy Indicators to help implement efficient public policies",
     "section": "Questions",
-    "text": "Questions\nThe two questions I want to answer:\nQuestion 1:\nCompare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?\nQuestion 2:\nIn context of public administration in different geographies, what is the relationship between income group and public administration efficiency?"
+    "text": "Questions\nThe two questions I want to answer:\n\nQuestion 1:\nCompare the different regions globally, research how has public sector employment changed over time? Pick up one country in a region and research if there are underlying factors for such changes?\n\n\nQuestion 2:\nIn context of public administration in different geographies, what is the relationship between income group and public administration efficiency?"
   },
   {
     "objectID": "presentation.html#visualization---1-question-1a",
@@ -103,5 +103,12 @@
     "title": "Research Worldwide Bureaucracy Indicators to help implement efficient public policies",
     "section": "Conclusions and Future Works",
     "text": "Conclusions and Future Works\n\nResearched and plot the trend of public sector employment over the years for all geographies\nFocus on several indicators between Canada and USA over the years\nEstablish a relationship between different income groups and public administration efficiency over the years for all regions\nResearch the disparities in income groups by gender, wage premium, and other indicators\nSuggest practices to bridge the gaps between similar economies"
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "Research Worldwide Bureaucracy Indicators to help implement efficient public policies",
+    "section": "",
+    "text": "Selected datasets from Worldwide Bureaucracy Indicators (WWBI)\nContain wages, income and employment information in public and private sector globally\nUtilized to create insights into current outcomes of public policies\nUnderstand the trends across geographies, and focus on a particular country\nHow to improve or suggest improvements in country-specific needs and situations"
   }
 ]
