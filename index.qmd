@@ -188,7 +188,6 @@ print(plot_b)
 
 ```
 
-
 ```{r}
 #| label: Question-1a
 #| message: false
@@ -251,8 +250,6 @@ print(plot_heatmap)
 
 ```
 
-
-
 ```{r}
 #| label: Question-1b
 #| message: false
@@ -304,7 +301,6 @@ plot_na2 <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, fill = indi
 print(plot_na2)
 
 ```
-
 
 ```{r}
 #| label: Question-2
