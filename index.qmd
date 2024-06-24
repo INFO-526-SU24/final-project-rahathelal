@@ -187,3 +187,170 @@ print(plot_b)
 # grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
 
 ```
+
+
+```{r}
+#| label: Question-1a
+#| message: false
+#| echo: false
+#| output: false
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(viridis)
+
+# Replicate base data into three dataframes to analyze question 1
+country_df <- wwbi_country 
+data_df <- wwbi_data 
+series_df <- wwbi_series 
+
+# Merge the three data frames on indicator code and country code 
+merged_df <- merge(data_df, series_df, by = "indicator_code")
+merged_df <- merge(merged_df, country_df, by = "country_code")
+
+# Filter for the public sector employment indicator (share of total employment)
+employment_data_tot <- merged_df %>%
+  filter(indicator_code == "BI.EMP.TOTL.PB.ZS")
+
+# Aggregate data by region to get the mean employment share
+aggregated_data <- employment_data_tot %>%
+  group_by(region) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+# Get world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Join aggregated data with world map data
+world_aggregated <- world %>%
+  left_join(aggregated_data, by = c("region_wb" = "region"))
+
+# Create heatmap plot with continuous color scale
+plot_heatmap <- ggplot(data = world_aggregated) +
+  geom_sf(aes(fill = mean_value), color = "black", size = 0.1) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey50", name = "Public Sector\nEmployment Share (%)") +
+  theme_minimal() +
+  labs(title = "Public Sector Employment Share by Region",
+       fill = "Employment Share (%)",
+       caption = "Source: WWBI Data") +
+  theme(
+    text = element_text(size = 8),
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.key.width = unit(2, "cm"),  # Elongate the legend key width
+    legend.key.height = unit(0.5, "cm"),  # Adjust the legend key height
+    plot.margin = margin(10, 10, 10, 10),
+    legend.title = element_text(size = 8),  # Adjust legend title size
+    legend.text = element_text(size = 8)  # Adjust legend text size
+  )
+
+print(plot_heatmap)
+
+```
+
+
+
+```{r}
+#| label: Question-1b
+#| message: false
+#| echo: false
+
+# named vector for five indicators
+indicator_labels <- c(
+  "BI.EMP.TOTL.PB.ZS" = "Share of total employment",
+  "BI.EMP.PWRK.PB.ZS" = "Share of paid employment",
+  "BI.EMP.FRML.PB.ZS" = "Share of formal employment",
+  "BI.EMP.TOTL.PB.UR.ZS" = "Share of total employment by urban location",
+  "BI.EMP.TOTL.PB.RU.ZS" = "Share of total employment by rural location"
+)
+
+# Filter for the public sector employment indicator (share of total and paid employment)
+empl_data_tot_paid <- merged_df %>%
+  filter(indicator_code %in% names(indicator_labels))
+
+# Add a new column for descriptive labels
+empl_data_tot_paid <- empl_data_tot_paid %>%
+  mutate(indicator_label = factor(indicator_code, levels = names(indicator_labels), labels = indicator_labels))
+
+# Aggregate data by year, region, and indicator_label - for NA
+aggregated_data_na <- empl_data_tot_paid %>%
+  group_by(year, region, indicator_label) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+aggregated_data_na <- aggregated_data_na %>%
+  filter(region == "North America")
+
+# Create plot_a with decreased width and separate colors for each indicator_label
+plot_na2 <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, fill = indicator_label)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_x_continuous(breaks = unique(aggregated_data_na$year)) +
+  labs(title = "Public Sector Employment as a Share of Total Employment\nOver Time by Region - North America",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       fill = "Indicator") +
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        axis.text.y = element_text(size = 9),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.spacing.y = unit(0.5, 'lines'),
+        plot.margin = margin(10, 10, 10, 10)) +  # Add margin around plot_a
+  guides(fill = guide_legend(nrow = 3))
+
+print(plot_na2)
+
+```
+
+
+```{r}
+#| label: Question-2
+#| message: false
+#| echo: false
+
+# Read the data
+
+country_df_2 <- wwbi_country 
+data_df_2 <- wwbi_data 
+series_df_2 <- wwbi_series 
+
+# country_df_2 <- country_df_2 %>%
+#   clean_names() %>%
+#   remove_empty("cols")
+
+# efficiency_indicators <- series_df_2 %>%
+#   filter(str_detect(str_to_lower(indicator_name), "public administration efficiency"))
+
+# Check available indicators related to public administration or efficiency
+relevant_indicators <- series_df_2 %>%
+  filter(str_detect(str_to_lower(indicator_name), "administration|government|efficiency"))
+
+# View relevant indicators
+# print(relevant_indicators)
+
+# Filter data_df for these indicators
+efficiency_data <- data_df_2 %>%
+  filter(indicator_code %in% relevant_indicators$indicator_code)
+
+# Merge data_df with country_df to get income group information
+merged_df_2 <- merge(efficiency_data, country_df_2, by = "country_code")
+
+# Aggregate and visualize the data
+efficiency_aggregated_2 <- merged_df_2 %>%
+  group_by(income_group, year) %>%
+  summarise(mean_efficiency = mean(value, na.rm = TRUE), .groups = "drop")
+
+# Plot the data
+ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = income_group)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Relationship Between Income Group and\nPublic Administration Efficiency Over Time",
+       x = "Year",
+       y = "Public Administration Efficiency",
+       color = "Income Group") +
+  theme_minimal()
+
+```
