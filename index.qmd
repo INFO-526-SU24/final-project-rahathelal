@@ -75,6 +75,8 @@ knitr::opts_chunk$set(
 
 ```
 
+- Create the year-on-year trend graph for all geographies showing the Public Sector Employment as a share of Total Employment Over Time by regions in general and North America in particular.
+
 ```{r}
 #| label: Question-1
 #| message: false
@@ -187,9 +189,11 @@ plot_b <- ggplot(aggregated_data, aes(x = year, y = mean_value, color = region))
 print(plot_b)
 
 # Display the plots side by side with adjusted widths
-grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
+# grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
 
 ```
+
+- Tested the use of world map background and show the same trend, but this plot does not deliver the intended meaning like the previous plot.
 
 ```{r}
 #| label: Question-1a
@@ -252,6 +256,8 @@ print(plot_heatmap)
 
 ```
 
+- Check for 5 different indicators: how does North American countries: USA and Canada compare against each other over the years.
+
 ```{r}
 #| label: Question-1b
 #| message: false
@@ -303,6 +309,7 @@ plot_na2 <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, fill = indi
 print(plot_na2)
 
 ```
+- Create a better comparison plots for the above criteria
 
 ```{r}
 #| label: Question-1c
@@ -357,6 +364,8 @@ print(plot_na)
 
 The visualizations created to address question 2 are shown below.
 
+- Create a visualization to show the relationship between Income Group and Public Administration Efficiency over years
+
 ```{r}
 #| label: Question-2a
 #| message: false
@@ -405,6 +414,7 @@ ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = incom
   theme_minimal()
 
 ```
+- Recreate a better version of the above plot to have the plot show different income levels separately against the expected public administration efficiency. It must be noted that this question needs more study and research as the resulting trend seem to be similar for all income groups which is not possible for many countries.
 
 ```{r}
 #| label: Question-2b
