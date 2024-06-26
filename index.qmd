@@ -22,7 +22,9 @@ execute:
 
 The available data on public sector employment globally suggests that it forms one of the significant job generators and seems necessary for any economy. Referring to @baig2021introducing, the World Bank developed a dataset called "Worldwide Bureaucracy Indicators," or WWBI, which consists of information on public and private sector income, employment, and employee wages further divided into sub-categories. Although the original dataset consists of more than 150 indicators of bureaucracy, the subset of that data is available for us to delve deeper into a few critical indicators for evaluating economic growth and policymaking. The dataset used for this project has nearly 20 such variables for all participating countries that help us answer a few questions. One of the starting points for this project is understanding the year-on-year trend of public sector employment across geographies and a possible comparison between them.
 
-Furthermore, the focus is shifted to a single country, and the rise or fall of employment trends through these years is assessed. Based on the outcome, the following research will establish the reasons behind such a scenario and help policymakers accordingly. The next topic to be discussed is the relationship between the efficiency of public administration and income levels in various countries. The exercise analyzes underlying data and reviews whether efficiency relates to income groupings.
+Furthermore, the focus is shifted to a single country or countries in the same region, and the rise or fall of employment trends through these years is assessed. A subset of bureaucracy indicators were utilized to visualize the trend over the years for specific countries. Based on the outcome, the following research will establish the reasons behind such situations, and help policymakers to work on policies accordingly. The next topic to be discussed is the relationship between the efficiency of public administration and income levels in various countries. The exercise analyzes underlying data and reviews whether efficiency relates to income groupings.
+
+The next paragraphs emphasize on the two questions that were researched and the creation of plots to visualize the trends.
 
 ### Question 1:
 
@@ -32,7 +34,9 @@ Compare the different regions globally, research how has public sector employmen
 
 In context of public administration in different geographies, what is the relationship between income group and public administration efficiency?
 
-### Visualization - 1
+### Visualization for Question 1
+
+The visualizations created to address question 1 are shown below.
 
 ```{r}
 #| label: load-packages
@@ -72,10 +76,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r}
-#| label: Visualization-1
+#| label: Question-1
 #| message: false
 #| echo: false
-#| output: false
 
 # Suppress all output during the data loading
 invisible(capture.output({
@@ -131,44 +134,44 @@ aggregated_data <- employment_data_tot %>%
   group_by(year, region) %>%
   summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
 
-# # Aggregate data by year, region, and indicator_code - for NA
-# aggregated_data_na <- empl_data_tot_paid %>%
-#   group_by(year, region, indicator_code) %>%
-#   summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+# Aggregate data by year, region, and indicator_code - for NA
+aggregated_data_na <- empl_data_tot_paid %>%
+  group_by(year, region, indicator_code) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
 
-# aggregated_data_na <- aggregated_data_na %>%
-#   filter(region == "North America")
+aggregated_data_na <- aggregated_data_na %>%
+  filter(region == "North America")
 
 # print(aggregated_data_na)
 
-# # Create plot_a with decreased width and separate colors for each indicator_code
-# plot_a <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, color = indicator_code, linetype = indicator_code)) +
-#   geom_line() +
-#   geom_point() +
-#   facet_wrap(~ region) +
-#   labs(title = "Public Sector Employment as a Share of\nTotal Employment Over Time by Region\nNorth America",
-#        x = "Year",
-#        y = "Public Sector Employment Share (%)",
-#        color = "Indicator Code",
-#        linetype = "Indicator Code") +
-#   theme_minimal() +
-#   theme(text = element_text(size = 8),
-#         axis.text.y = element_text(size = 9),
-#         legend.position = "bottom",
-#         legend.title = element_blank(),
-#         legend.text = element_text(size = 8),
-#         legend.spacing.y = unit(0.5, 'lines'),
-#         plot.margin = margin(10, 10, 10, 10)) +  # Add margin around plot_a
-#   guides(color = guide_legend(nrow = 3), linetype = guide_legend(nrow = 3))
-# 
-# print(plot_a)
+# Create plot_a with decreased width and separate colors for each indicator_code
+plot_a <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, color = indicator_code, linetype = indicator_code)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ region) +
+  labs(title = "Public Sector Employment as a Share of\nTotal Employment Over Time by Region\nNorth America",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       color = "Indicator Code",
+       linetype = "Indicator Code") +
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        axis.text.y = element_text(size = 9),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.spacing.y = unit(0.5, 'lines'),
+        plot.margin = margin(10, 10, 10, 10)) +  
+  guides(color = guide_legend(nrow = 3), linetype = guide_legend(nrow = 3))
+
+print(plot_a)
 
 # Create plot_b with increased width
 plot_b <- ggplot(aggregated_data, aes(x = year, y = mean_value, color = region)) +
   geom_line() +
   scale_x_continuous(breaks = unique(aggregated_data$year)) +
   geom_point() +
-  labs(title = "Public Sector Employment as a Share of Total Employment Over Time by Region All Geographies",
+  labs(title = "Public Sector Employment as a Share of Total Employment\nOver Time by Region All Geographies",
        x = "Year",
        y = "Public Sector Employment Share (%)",
        color = "Region") +
@@ -184,7 +187,7 @@ plot_b <- ggplot(aggregated_data, aes(x = year, y = mean_value, color = region))
 print(plot_b)
 
 # Display the plots side by side with adjusted widths
-# grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
+grid.arrange(plot_b, plot_a, ncol = 2, widths = c(0.55, 0.45))
 
 ```
 
@@ -192,7 +195,6 @@ print(plot_b)
 #| label: Question-1a
 #| message: false
 #| echo: false
-#| output: false
 
 # Load necessary libraries
 library(ggplot2)
@@ -303,7 +305,60 @@ print(plot_na2)
 ```
 
 ```{r}
-#| label: Question-2
+#| label: Question-1c
+#| message: false
+#| echo: false
+
+# Filter for North America region and the two countries
+north_america_data <- empl_data_tot_paid %>%
+  filter(region == "North America")
+
+# named vector for five indicators
+indicator_labels <- c(
+  "BI.EMP.TOTL.PB.ZS" = "Share of total employment",
+  "BI.EMP.PWRK.PB.ZS" = "Share of paid employment",
+  "BI.EMP.FRML.PB.ZS" = "Share of formal employment",
+  "BI.EMP.TOTL.PB.UR.ZS" = "Share of total employment by urban location",
+  "BI.EMP.TOTL.PB.RU.ZS" = "Share of total employment by rural location"
+)
+
+# Add a new column for descriptive labels
+north_america_data <- north_america_data %>%
+  mutate(indicator_label = factor(indicator_code, levels = names(indicator_labels), labels = indicator_labels))
+
+# Aggregate data by year, country, and indicator_label
+aggregated_data_na <- north_america_data %>%
+  group_by(year, country_code, indicator_label) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop")
+
+# Create the grouped bar plot
+plot_na <- ggplot(aggregated_data_na, aes(x = year, y = mean_value, fill = country_code)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  facet_wrap(~ indicator_label, scales = "free_y") +
+  scale_x_continuous(breaks = unique(aggregated_data_na$year)) +
+  labs(title = "Comparison of Public Sector Employment Indicators between\nCanada and United States of America\nOver the Years",
+       x = "Year",
+       y = "Public Sector Employment Share (%)",
+       fill = "Country") +
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        axis.text.y = element_text(size = 9),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.spacing.y = unit(0.5, 'lines'),
+        plot.margin = margin(10, 10, 10, 10))
+
+print(plot_na)
+
+```
+
+### Visualization for Question 2
+
+The visualizations created to address question 2 are shown below.
+
+```{r}
+#| label: Question-2a
 #| message: false
 #| echo: false
 
@@ -348,5 +403,58 @@ ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = incom
        y = "Public Administration Efficiency",
        color = "Income Group") +
   theme_minimal()
+
+```
+
+```{r}
+#| label: Question-2b
+#| message: false
+#| echo: false
+
+country_df_2 <- wwbi_country 
+data_df_2 <- wwbi_data 
+series_df_2 <- wwbi_series 
+
+# country_df_2 <- country_df_2 %>%
+#   clean_names() %>%
+#   remove_empty("cols")
+
+# efficiency_indicators <- series_df_2 %>%
+#   filter(str_detect(str_to_lower(indicator_name), "public administration efficiency"))
+
+# Check available indicators related to public administration or efficiency
+relevant_indicators <- series_df_2 %>%
+  filter(str_detect(str_to_lower(indicator_name), "administration|government|efficiency"))
+
+# View relevant indicators
+# print(relevant_indicators)
+
+# Filter data_df for these indicators
+efficiency_data <- data_df_2 %>%
+  filter(indicator_code %in% relevant_indicators$indicator_code)
+
+# Merge data_df with country_df to get income group information
+merged_df_2 <- merge(efficiency_data, country_df_2, by = "country_code")
+
+# Aggregate and visualize the data
+efficiency_aggregated_2 <- merged_df_2 %>%
+  group_by(income_group, year) %>%
+  summarise(mean_efficiency = mean(value, na.rm = TRUE), .groups = "drop")
+
+# Plot the data as a facet grid with line graphs
+ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, group = income_group, color = income_group)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ income_group, scales = "free_y") +
+  labs(title = "Relationship Between Income Group and Public Administration Efficiency Over Years",
+       x = "Year",
+       y = "Public Administration Efficiency") +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 8),
+    axis.text.x = element_text(hjust = 1),
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
 
 ```
