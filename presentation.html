@@ -411,15 +411,15 @@ $ latest_population_census_notes                    &lt;chr&gt; "(expected)", NA
 <section id="visualization---1-question-1a" class="slide level2">
 <h2>Visualization - 1 (Question 1a)</h2>
 
-<img data-src="presentation_files/figure-revealjs/Visualization-1-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
+<img data-src="presentation_files/figure-html/Visualization-1-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
 <section id="visualization---2-question-1b" class="slide level2">
 <h2>Visualization - 2 (Question 1b)</h2>
 
-<img data-src="presentation_files/figure-revealjs/Visualization-4-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
+<img data-src="presentation_files/figure-html/Visualization-4-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
 <section id="visualization---3-question-2" class="slide level2">
 <h2>Visualization - 3 (Question 2)</h2>
 
-<img data-src="presentation_files/figure-revealjs/Question-2-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
+<img data-src="presentation_files/figure-html/Question-2-1.png" width="1800" class="r-stretch quarto-figure-center"></section>
 <section id="conclusions-and-future-works" class="slide level2">
 <h2>Conclusions and Future Works</h2>
 <ul>
@@ -645,44 +645,6 @@ $ latest_population_census_notes                    &lt;chr&gt; "(expected)", NA
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
