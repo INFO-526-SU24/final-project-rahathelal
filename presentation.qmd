@@ -277,6 +277,10 @@ efficiency_data <- data_df_2 %>%
 # Merge data_df with country_df to get income group information
 merged_df_2 <- merge(efficiency_data, country_df_2, by = "country_code")
 
+# Filter out rows where income_group is NA
+merged_df_2 <- merged_df_2 %>%
+  filter(!is.na(income_group))
+
 # Aggregate and visualize the data
 efficiency_aggregated_2 <- merged_df_2 %>%
   group_by(income_group, year) %>%

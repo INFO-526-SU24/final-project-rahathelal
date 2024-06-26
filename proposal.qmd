@@ -341,14 +341,15 @@ ggplot(efficiency_aggregated_2, aes(x = year, y = mean_efficiency, color = incom
 
     -   Week starting June 10: Work on project
 
-    -   Week starting June 17: Finalize your write-up, presentation, and your project website. Record presentation for class by Monday (June 24th)
+        -   Week starting June 17: Finalize your write-up, presentation, and your project website. Record presentation for class by Monday (June 24th)
 
-        | Task Name                       | Status    | Assignee             | Due     | Priority | Summary                                                                                                                |
-        |------------|------------|------------|------------|------------|------------|
-        | Preliminary data analysis       | Completed | Mohammad Rahat Helal | June 10 | High     | The underlying data from the three wwbi datasets have been analyzed, fields selected for both questions to be answered |
-        | Analyze data and generate plots | Completed | Mohammad Rahat Helal | June 17 | High     | Come up with suitable plots for the two questions                                                                      |
-        | Finalize plots and ppt          | Completed | Mohammad Rahat Helal | June 24 | High     | Complete the plots for two questions and work on presentation                                                          |
+            | Task Name                       | Status    | Assignee             | Due     | Priority | Summary                                                                                                                |
+            |------------|------------|------------|------------|------------|------------|
+            | Preliminary data analysis       | Completed | Mohammad Rahat Helal | June 10 | High     | The underlying data from the three wwbi datasets have been analyzed, fields selected for both questions to be answered |
+            | Analyze data and generate plots | Completed | Mohammad Rahat Helal | June 17 | High     | Come up with suitable plots for the two questions                                                                      |
+            | Finalize plots and ppt          | Completed | Mohammad Rahat Helal | June 24 | High     | Complete the plots for two questions and work on presentation                                                          |
+            | Final Submission                | Completed | Mohammad Rahat Helal | June 26 | High     | Publish and render website to sync all files for online access                                                         |
 
-        : Workflow
+            : Workflow
 
 ## References
